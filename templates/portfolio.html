@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio - Buk Digital{% endblock %}
+
+{% block content %}
+<section class="portfolio-page">
+    <div class="container">
+        <h1>Our Work</h1>
+        <p class="page-intro">A selection of websites and web applications we've built for clients</p>
+
+        <div class="portfolio-filter">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="app">Web Apps</button>
+            <button class="filter-btn" data-filter="site">Websites</button>
+        </div>
+
+        <div class="portfolio-grid" id="portfolioGrid">
+
+            <div class="portfolio-card" data-type="app">
+                <div class="portfolio-visual pv-1">
+                    <svg viewBox="0 0 64 64" width="52" height="52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="14" width="48" height="36" rx="4" stroke="white" stroke-width="2.5"/>
+                        <path d="M20 30h24M20 38h16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="44" cy="22" r="4" fill="white" fill-opacity="0.3" stroke="white" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="portfolio-card-body">
+                    <span class="portfolio-badge badge-app">Web App</span>
+                    <h3>ShopFlow E-Commerce Platform</h3>
+                    <p>Full-featured online store with inventory management, payment processing, and an admin dashboard built for a local fashion retailer.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Stripe</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card" data-type="site">
+                <div class="portfolio-visual pv-2">
+                    <svg viewBox="0 0 64 64" width="52" height="52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="12" width="48" height="40" rx="4" stroke="white" stroke-width="2.5"/>
+                        <rect x="8" y="12" width="48" height="14" rx="4" fill="white" fill-opacity="0.2"/>
+                        <path d="M18 34h28M18 42h20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="20" cy="19" r="3" fill="white" fill-opacity="0.6"/>
+                    </svg>
+                </div>
+                <div class="portfolio-card-body">
+                    <span class="portfolio-badge badge-site">Website</span>
+                    <h3>Tasty Bites Restaurant Group</h3>
+                    <p>Multi-location restaurant website with an online reservation system, menu management, and location-specific pages.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Flask</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card" data-type="app">
+                <div class="portfolio-visual pv-3">
+                    <svg viewBox="0 0 64 64" width="52" height="52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="8" width="48" height="48" rx="4" stroke="white" stroke-width="2.5"/>
+                        <rect x="16" y="36" width="8" height="12" rx="1" fill="white" fill-opacity="0.5"/>
+                        <rect x="28" y="28" width="8" height="20" rx="1" fill="white" fill-opacity="0.5"/>
+                        <rect x="40" y="20" width="8" height="28" rx="1" fill="white" fill-opacity="0.5"/>
+                        <path d="M16 24l12-8 12 6 8-10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="portfolio-card-body">
+                    <span class="portfolio-badge badge-app">Web App</span>
+                    <h3>HR Management Dashboard</h3>
+                    <p>Internal web application for employee management, leave tracking, payroll summaries, and performance reviews for a mid-sized company.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card" data-type="site">
+                <div class="portfolio-visual pv-4">
+                    <svg viewBox="0 0 64 64" width="52" height="52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M32 8L8 28h6v28h36V28h6L32 8z" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+                        <rect x="24" y="40" width="16" height="16" rx="1" stroke="white" stroke-width="2"/>
+                        <rect x="20" y="28" width="10" height="10" rx="1" fill="white" fill-opacity="0.3"/>
+                        <rect x="34" y="28" width="10" height="10" rx="1" fill="white" fill-opacity="0.3"/>
+                    </svg>
+                </div>
+                <div class="portfolio-card-body">
+                    <span class="portfolio-badge badge-site">Website</span>
+                    <h3>Prestige Real Estate Agency</h3>
+                    <p>Property listing website with advanced search, map integration, virtual tour links, and an agent contact portal.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">Google Maps</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card" data-type="app">
+                <div class="portfolio-visual pv-5">
+                    <svg viewBox="0 0 64 64" width="52" height="52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="8" width="48" height="48" rx="4" stroke="white" stroke-width="2.5"/>
+                        <circle cx="32" cy="32" r="12" stroke="white" stroke-width="2.5"/>
+                        <circle cx="32" cy="32" r="4" fill="white" fill-opacity="0.5"/>
+                        <path d="M32 20v-6M32 50v-6M20 32h-6M50 32h-6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="portfolio-card-body">
+                    <span class="portfolio-badge badge-app">Web App</span>
+                    <h3>LogiTrack Shipment System</h3>
+                    <p>Real-time shipment tracking platform with driver assignment, customer notifications, and a live map view for a logistics company.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">WebSockets</span>
+                        <span class="tech-tag">Leaflet.js</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card" data-type="site">
+                <div class="portfolio-visual pv-6">
+                    <svg viewBox="0 0 64 64" width="52" height="52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="28" r="16" stroke="white" stroke-width="2.5"/>
+                        <path d="M20 52c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M26 24l4 4 8-8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="portfolio-card-body">
+                    <span class="portfolio-badge badge-site">Website</span>
+                    <h3>BrightSmile Dental Practice</h3>
+                    <p>Professional dental practice website with service listings, patient resources, an appointment request form, and staff profiles.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Flask</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <h2>Have a project in mind?</h2>
+        <p>Let's talk about what we can build for you</p>
+        <a href="/contact" class="cta-button secondary">Get a Free Quote</a>
+    </div>
+</section>
+
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('#portfolioGrid .portfolio-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.dataset.filter;
+            cards.forEach(card => {
+                card.style.display = (filter === 'all' || card.dataset.type === filter) ? '' : 'none';
+            });
+        });
+    });
+</script>
+{% endblock %}
