@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Something Went Wrong - Buk Digital{% endblock %}
+
+{% block content %}
+<section class="error-page">
+    <div class="container">
+        <div class="error-code">500</div>
+        <h1>Something Went Wrong</h1>
+        <p>An unexpected error occurred on our end. Please try again in a moment.</p>
+        <div class="error-actions">
+            <a href="/" class="cta-button">Back to Home</a>
+            <a href="/contact" class="cta-button secondary">Report a Problem</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
