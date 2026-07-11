@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -X POST http://localhost:3111/api/book -H \"Content-Type: application/json\" -d '{\"name\":\"Test Client\",\"email\":\"test@example.com\",\"phone\":\"+27 60 000 0000\",\"company\":\"Test Co\",\"service\":\"Consultation\",\"dateTime\":\"2026-07-15T09:00:00.000Z\",\"brief\":\"Need a booking system for my salon.\"}')",
+      "Bash(curl -s -X POST http://localhost:3111/api/book -H \"Content-Type: application/json\" -d '{\"name\":\"\",\"email\":\"bad\",\"service\":\"X\"}')",
+      "Bash(curl -s -X POST http://localhost:3111/api/contact -H \"Content-Type: application/json\" -d '{\"name\":\"Test\",\"email\":\"t@e.com\",\"phone\":\"123\",\"message\":\"Hello\"}')",
+      "Bash(curl -s http://localhost:3111/sitemap.xml)",
+      "Bash(curl -s http://localhost:3111/robots.txt)",
+      "Bash(curl -s http://localhost:3111/)",
+      "Bash(npx next *)",
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(timeout 60 bash -c 'until curl -sf http://localhost:3000 >/dev/null 2>&1; do sleep 2; done')",
+      "Bash('C:/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe' --headless=new --disable-gpu --hide-scrollbars --window-size=1440,900 --virtual-time-budget=6000 --screenshot=C:/Users/Admin/AppData/Local/Temp/claude/c--Users-Admin-Desktop-Projects-Buk-Digital-buk-digital/bd069dd1-2c86-46e9-a08b-caffb399fc13/scratchpad/hero-desktop.png http://localhost:3000/)",
+      "Bash('C:/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe' --headless=new --disable-gpu --hide-scrollbars --window-size=390,844 --virtual-time-budget=6000 --screenshot=C:/Users/Admin/AppData/Local/Temp/claude/c--Users-Admin-Desktop-Projects-Buk-Digital-buk-digital/bd069dd1-2c86-46e9-a08b-caffb399fc13/scratchpad/hero-mobile.png http://localhost:3000/)",
+      "Bash(npx tsc *)",
+      "Bash(echo \"TSC_EXIT:$?\")",
+      "Bash(npx eslint *)",
+      "Bash('C:/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe' --headless=new --disable-gpu --hide-scrollbars --window-size=1440,900 --virtual-time-budget=6000 --screenshot=C:/Users/Admin/AppData/Local/Temp/claude/c--Users-Admin-Desktop-Projects-Buk-Digital-buk-digital/bd069dd1-2c86-46e9-a08b-caffb399fc13/scratchpad/v2-hero.png http://localhost:3000/)",
+      "Bash('C:/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe' --headless=new --disable-gpu --hide-scrollbars --window-size=390,844 --virtual-time-budget=6000 --screenshot=C:/Users/Admin/AppData/Local/Temp/claude/c--Users-Admin-Desktop-Projects-Buk-Digital-buk-digital/bd069dd1-2c86-46e9-a08b-caffb399fc13/scratchpad/v2-mobile.png http://localhost:3000/)",
+      "Bash('C:/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe' --headless=new --disable-gpu --hide-scrollbars --window-size=1440,900 --virtual-time-budget=6000 --screenshot=C:/Users/Admin/AppData/Local/Temp/claude/c--Users-Admin-Desktop-Projects-Buk-Digital-buk-digital/bd069dd1-2c86-46e9-a08b-caffb399fc13/scratchpad/v2-pricing.png http://localhost:3000/pricing)",
+      "Bash(powershell -Command \"Get-Content 'c:/Users/Admin/Desktop/Projects/Buk Digital/buk digital/.next/dev/logs/next-development.log' -Tail 12\")",
+      "Bash(grep -o 'motion.path[^\\\\\\\\]*\\\\|style={{[^}]*}}\\\\|d=\\\\\\\\\\\\\\\\\"[^\\\\\\\\]\\\\{0,60\\\\}\\\\|opacity:[^,}\\\\\\\\]*' \"C:\\\\Users\\\\Admin\\\\.claude\\\\projects\\\\c--Users-Admin-Desktop-Projects-Buk-Digital-buk-digital\\\\bd069dd1-2c86-46e9-a08b-caffb399fc13\\\\tool-results\\\\bpwjepx53.txt\")",
+      "Bash(perl -0pi -e 's/animate=\\\\{\\\\{\\\\n\\(\\\\s+\\)\\\\.\\\\.\\\\.sharedAnimationProps,\\\\n\\(\\\\s+\\)y: \\(\\\\[[^\\\\]]+\\\\]\\),\\\\n\\(\\\\s+\\)\\\\}\\\\}/animate={{\\\\n$1...sharedAnimationProps,\\\\n$1opacity: path.opacity,\\\\n$2y: $3,\\\\n$4}}/g; s/\\\\n\\\\s+style=\\\\{\\\\{ opacity: path\\\\.opacity \\\\}\\\\}//g' components/kokonutui/background-paths.tsx)",
+      "Bash('C:/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe' --headless=new --disable-gpu --hide-scrollbars --window-size=1440,900 --virtual-time-budget=8000 --screenshot=C:/Users/Admin/AppData/Local/Temp/claude/c--Users-Admin-Desktop-Projects-Buk-Digital-buk-digital/bd069dd1-2c86-46e9-a08b-caffb399fc13/scratchpad/v3-hero.png http://localhost:3000/)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(python -c ' *)",
+      "Bash(node -e ' *)",
+      "Bash('C:/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe' --headless=new --disable-gpu --hide-scrollbars --window-size=1440,900 --virtual-time-budget=8000 --screenshot=C:/Users/Admin/AppData/Local/Temp/claude/c--Users-Admin-Desktop-Projects-Buk-Digital-buk-digital/bd069dd1-2c86-46e9-a08b-caffb399fc13/scratchpad/v4-hero.png http://localhost:3000/)"
+    ]
+  }
+}
