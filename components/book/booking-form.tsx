@@ -22,8 +22,9 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { ConsentFields } from "@/components/forms/consent-fields";
+import { BOOKING_SERVICES } from "@/lib/services";
 
-const SERVICES = ["Custom Web App", "Software Solution", "Consultation"];
+
 
 const TIME_SLOTS = [
   "09:00",
@@ -210,7 +211,7 @@ export function BookingForm() {
             <SelectValue placeholder="Choose a service" />
           </SelectTrigger>
           <SelectContent>
-            {SERVICES.map((s) => (
+            {BOOKING_SERVICES.map((s) => (
               <SelectItem key={s} value={s}>
                 {s}
               </SelectItem>

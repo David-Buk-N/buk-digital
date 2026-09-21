@@ -8,58 +8,19 @@ import {
   useSyncExternalStore,
 } from "react";
 import Link from "next/link";
-import {
-  AppWindow,
-  ArrowRight,
-  Check,
-  Globe,
-  Lightbulb,
-  Workflow,
-} from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { serviceCategories } from "@/lib/services";
 
-const services = [
-  {
-    node: "Web Apps",
-    title: "Custom Web Applications",
-    description:
-      "Client portals, dashboards, booking systems and internal tools, built around how your business actually works.",
-    icon: AppWindow,
-    cta: { href: "/book", label: "Book a Session" },
-  },
-  {
-    node: "Software",
-    title: "Software Solutions",
-    description:
-      "Automation and integrations that remove repetitive admin and connect the tools you already use.",
-    icon: Workflow,
-    cta: { href: "/book", label: "Book a Session" },
-  },
-  {
-    node: "Advisory",
-    title: "Consultations",
-    description:
-      "Strategy sessions, digital audits and solution scoping — a clear roadmap before you spend a rand.",
-    icon: Lightbulb,
-    cta: { href: "/book", label: "Book a Session" },
-  },
-  {
-    node: "Websites",
-    title: "Website Design & Hosting",
-    description:
-      "Professionally designed business websites with managed hosting, maintenance and ongoing support.",
-    icon: Globe,
-    cta: { href: "/pricing", label: "View Packages" },
-  },
-];
+const services = serviceCategories;
 
 const capabilities = [
-  "Client portals",
-  "Dashboards & reporting",
-  "Booking systems",
-  "CRM & automation",
+  "Branding & identity",
+  "Logo design",
   "Business websites",
-  "Managed hosting",
+  "Domains & email",
+  "CRM & automation",
+  "Custom dashboards",
 ];
 
 // Ring geometry. The SVG uses a 520 viewBox with r=200, so the nodes sit at
@@ -149,7 +110,7 @@ export function ServicesSection() {
     const isActive = index === active;
     return (
       <button
-        key={service.node}
+        key={service.id}
         ref={(element) => {
           refs.current[variant][index] = element;
         }}
@@ -194,14 +155,17 @@ export function ServicesSection() {
         {String(services.length).padStart(2, "0")}
       </p>
       <h3 className="mt-2 text-balance text-xl font-semibold tracking-tight sm:text-2xl">
-        {current.title}
+        {current.name}
       </h3>
       <p className="mx-auto mt-2 max-w-[30ch] text-sm leading-relaxed text-muted-foreground">
-        {current.description}
+        {current.tagline}
+      </p>
+      <p className="mt-3 font-mono text-xs text-foreground">
+        {current.priceSummary}
       </p>
       <Link
         href={current.cta.href}
-        className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+        className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
       >
         {current.cta.label}
         <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -221,8 +185,8 @@ export function ServicesSection() {
             What we build.
           </h2>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            Four ways Buk Digital helps your business run smoother, look
-            sharper and grow faster.
+            Three ways Buk Digital helps your business look credible, get
+            found and run smoother.
           </p>
 
           <ul className="mt-10 grid border-t border-border sm:grid-cols-2 sm:gap-x-8">
@@ -310,7 +274,7 @@ export function ServicesSection() {
           <div role="tablist" aria-label="Services" className="absolute inset-0">
             {services.map((service, index) => (
               <span
-                key={service.node}
+                key={service.id}
                 className="absolute -translate-x-1/2 -translate-y-1/2"
                 style={nodePosition(index)}
               >

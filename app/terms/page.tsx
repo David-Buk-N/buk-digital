@@ -47,10 +47,21 @@ export default function TermsPage() {
       <h2 id="services">3. Services</h2>
       <p>We provide some or all of the following, as set out in your quote:</p>
       <ul>
-        <li>Website design, development and launch</li>
-        <li>Website hosting, maintenance and support</li>
-        <li>Custom web applications and business software</li>
-        <li>Workflow automation and system integrations</li>
+        <li>
+          <strong>Business Development</strong> — branding and visual identity,
+          logo design, brand guidelines, business setup and related
+          documentation
+        </li>
+        <li>
+          <strong>Digital Presence</strong> — website design and development,
+          domain registration, professional email, hosting, SSL, maintenance
+          and optional ongoing support
+        </li>
+        <li>
+          <strong>Custom Solutions</strong> — web applications, custom
+          software, CRM and automation, business management systems, API
+          integrations, dashboards and internal tools
+        </li>
         <li>Technology consulting and digital audits</li>
       </ul>
 

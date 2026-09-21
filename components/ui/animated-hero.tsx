@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 export const Hero = () => {
   const [titleNumber, setTitleNumber] = useState(0);
   const titles = useMemo(
-    () => ["web apps", "software", "consultations", "websites"],
+    () => ["brands", "websites", "web apps", "software"],
     []
   );
 

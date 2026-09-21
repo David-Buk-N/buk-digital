@@ -4,7 +4,7 @@ import { BookingForm } from "@/components/book/booking-form";
 export const metadata: Metadata = {
   title: "Book a Session",
   description:
-    "Book a free session with Buk Digital — scope your custom web app, software solution or consultation. We'll confirm by email.",
+    "Book a free session with Buk Digital — scope your branding, website or custom software project. We'll confirm by email.",
 };
 
 export default function BookPage() {

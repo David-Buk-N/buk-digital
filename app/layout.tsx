@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — Custom Web Apps, Software & Websites`,
+    default: `${siteConfig.name} — Branding, Websites & Custom Software`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -38,12 +38,12 @@ export const metadata: Metadata = {
     locale: "en_ZA",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} — Custom Web Apps, Software & Websites`,
+    title: `${siteConfig.name} — Branding, Websites & Custom Software`,
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} — Custom Web Apps, Software & Websites`,
+    title: `${siteConfig.name} — Branding, Websites & Custom Software`,
     description: siteConfig.description,
   },
   robots: {

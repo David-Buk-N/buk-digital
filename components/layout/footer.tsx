@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 import { siteConfig } from "@/lib/site";
+import { serviceLinks } from "@/lib/services";
 import {
   addressOneLine,
   legalEntity,
@@ -36,12 +37,7 @@ function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-const serviceLinks = [
-  { href: "/#services", label: "Custom Web Applications" },
-  { href: "/#services", label: "Software Solutions" },
-  { href: "/book", label: "Consultations" },
-  { href: "/pricing", label: "Website Design & Hosting" },
-];
+
 
 const companyLinks = [
   { href: "/pricing", label: "Pricing" },
@@ -95,8 +91,8 @@ export function Footer() {
               <span>Buk Digital</span>
             </div>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-              Custom web applications, software solutions and business websites
-              for growing South African businesses.
+              Branding, business websites and custom software for growing
+              South African businesses.
             </p>
             {socialLinks.length > 0 && (
               <div className="mt-4 flex gap-3">

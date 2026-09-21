@@ -4,8 +4,9 @@ import {
   isCalendarConfigured,
 } from "@/lib/google-calendar";
 import { isEmailConfigured, ownerEmail, sendMail } from "@/lib/email";
+import { BOOKING_SERVICES } from "@/lib/services";
 
-const SERVICES = ["Custom Web App", "Software Solution", "Consultation"];
+
 const SESSION_MINUTES = 60;
 
 interface BookingPayload {
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
   if (!email?.trim() || !/^\S+@\S+\.\S+$/.test(email))
     errors.email = "A valid email address is required";
   if (!phone?.trim()) errors.phone = "Phone number is required";
-  if (!service || !SERVICES.includes(service))
+  if (!service || !BOOKING_SERVICES.includes(service))
     errors.service = "Please choose a service";
   if (!brief?.trim()) errors.brief = "Please tell us a little about your project";
 

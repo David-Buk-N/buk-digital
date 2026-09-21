@@ -5,7 +5,7 @@ import { ProcessSection } from "@/components/sections/process-section";
 import { CtaBand } from "@/components/sections/cta-band";
 
 export const metadata: Metadata = {
-  title: "Buk Digital — Custom Web Apps, Software & Websites for SMEs",
+  title: "Buk Digital — Branding, Websites & Custom Software for SMEs",
   description:
     "Buk Digital builds custom web applications, software solutions and professionally designed websites for growing South African businesses. Book a free session today.",
 };
