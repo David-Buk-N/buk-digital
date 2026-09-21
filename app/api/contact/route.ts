@@ -6,6 +6,7 @@ interface ContactPayload {
   email?: string;
   phone?: string;
   message?: string;
+  marketingOptIn?: boolean;
 }
 
 export async function POST(request: NextRequest) {
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  const { name, email, phone, message } = payload;
+  const { name, email, phone, message, marketingOptIn = false } = payload;
 
   const errors: Record<string, string> = {};
   if (!name?.trim()) errors.name = "Name is required";
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
 
   console.log(
     "[contact] New inquiry:",
-    JSON.stringify({ name, email, phone, message })
+    JSON.stringify({ name, email, phone, message, marketingOptIn })
   );
 
   try {
@@ -44,6 +45,8 @@ export async function POST(request: NextRequest) {
           `Name: ${name}`,
           `Email: ${email}`,
           `Phone: ${phone}`,
+          "",
+          `Marketing opt-in: ${marketingOptIn ? "YES" : "no"}`,
           "",
           "Message:",
           message!,

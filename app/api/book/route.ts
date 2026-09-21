@@ -16,6 +16,7 @@ interface BookingPayload {
   service?: string;
   dateTime?: string;
   brief?: string;
+  marketingOptIn?: boolean;
 }
 
 export async function POST(request: NextRequest) {
@@ -26,8 +27,16 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  const { name, email, phone, company = "", service, dateTime, brief } =
-    payload;
+  const {
+    name,
+    email,
+    phone,
+    company = "",
+    service,
+    dateTime,
+    brief,
+    marketingOptIn = false,
+  } = payload;
 
   const errors: Record<string, string> = {};
   if (!name?.trim()) errors.name = "Full name is required";
@@ -58,6 +67,7 @@ export async function POST(request: NextRequest) {
     start: start!,
     end: new Date(start!.getTime() + SESSION_MINUTES * 60 * 1000),
     brief: brief!.trim(),
+    marketingOptIn,
   };
 
   // Always log the full booking server-side so nothing is ever lost, even
@@ -112,6 +122,7 @@ export async function POST(request: NextRequest) {
           `Company: ${booking.company || "—"}`,
           `Service: ${booking.service}`,
           `Preferred date & time: ${when} (SAST)`,
+          `Marketing opt-in: ${booking.marketingOptIn ? "YES" : "no"}`,
           "",
           "Project brief:",
           booking.brief,

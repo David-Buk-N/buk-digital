@@ -11,4 +11,13 @@ export const siteConfig = {
   whatsappHref:
     "https://wa.me/27646495045?text=Hi%20Buk%20Digital%2C%20I%27d%20like%20to%20chat%20about%20a%20project.",
   location: "South Africa",
+  /**
+   * Social profiles. Each icon is hidden until its URL is filled in, so the
+   * footer never shows a link that goes nowhere.
+   */
+  social: {
+    facebook: null as string | null,
+    instagram: null as string | null,
+    linkedin: null as string | null,
+  },
 };

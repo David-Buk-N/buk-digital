@@ -152,3 +152,40 @@
     @apply font-sans;
   }
 }
+/* Long-form policy text (Terms, Privacy, Refunds, PAIA). The project has no
+   typography plugin, so the legal pages get their own element styles here. */
+@layer components {
+  .legal-prose {
+    @apply text-muted-foreground leading-relaxed;
+  }
+  .legal-prose h2 {
+    @apply mt-10 mb-3 text-xl font-semibold text-foreground scroll-mt-24;
+  }
+  .legal-prose h3 {
+    @apply mt-6 mb-2 text-base font-semibold text-foreground;
+  }
+  .legal-prose p {
+    @apply my-3;
+  }
+  .legal-prose ul {
+    @apply my-3 list-disc space-y-1 pl-6;
+  }
+  .legal-prose ol {
+    @apply my-3 list-decimal space-y-1 pl-6;
+  }
+  .legal-prose a {
+    @apply text-foreground underline underline-offset-4 hover:text-primary;
+  }
+  .legal-prose strong {
+    @apply font-semibold text-foreground;
+  }
+  .legal-prose table {
+    @apply my-4 w-full border-collapse text-sm;
+  }
+  .legal-prose th {
+    @apply border border-border bg-card px-3 py-2 text-left font-semibold text-foreground;
+  }
+  .legal-prose td {
+    @apply border border-border px-3 py-2 align-top;
+  }
+}

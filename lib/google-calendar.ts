@@ -9,6 +9,8 @@ export interface BookingDetails {
   start: Date;
   end: Date;
   brief: string;
+  /** Recorded so consent for direct marketing is auditable (POPIA s69). */
+  marketingOptIn: boolean;
 }
 
 /**
@@ -96,6 +98,7 @@ export async function createBookingEvent(
     `Phone: ${booking.phone}`,
     `Company: ${booking.company || "—"}`,
     `Service: ${booking.service}`,
+    `Marketing opt-in: ${booking.marketingOptIn ? "YES" : "no"}`,
     "",
     "Project brief:",
     booking.brief,

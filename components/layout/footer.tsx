@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 import { siteConfig } from "@/lib/site";
+import {
+  addressOneLine,
+  legalEntity,
+  legalPages,
+  resolved,
+} from "@/lib/legal";
 
 function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -43,11 +49,30 @@ const companyLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
+// Only profiles with a URL in siteConfig are rendered — no dead links.
+const socialLinks = [
+  { label: "Facebook", href: siteConfig.social.facebook, Icon: FacebookIcon },
+  { label: "Instagram", href: siteConfig.social.instagram, Icon: InstagramIcon },
+  { label: "LinkedIn", href: siteConfig.social.linkedin, Icon: LinkedinIcon },
+].filter((link): link is typeof link & { href: string } => Boolean(link.href));
+
 export function Footer() {
+  // Supplier identity (ECTA s43). Built from whichever details are known, and
+  // omitted entirely until at least one of them is filled in.
+  const identityLine = [
+    resolved(legalEntity.legalName),
+    resolved(legalEntity.registrationNumber) &&
+      `Reg. No. ${resolved(legalEntity.registrationNumber)}`,
+    legalEntity.vatNumber && `VAT No. ${legalEntity.vatNumber}`,
+    addressOneLine(),
+  ]
+    .filter(Boolean)
+    .join(" · ");
+
   return (
     <footer className="border-t border-border/60 bg-background">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
           <div>
             <div className="flex items-center gap-2 font-semibold">
               <svg
@@ -73,29 +98,22 @@ export function Footer() {
               Custom web applications, software solutions and business websites
               for growing South African businesses.
             </p>
-            <div className="mt-4 flex gap-3">
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <FacebookIcon />
-              </a>
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <InstagramIcon />
-              </a>
-              <a
-                href="#"
-                aria-label="LinkedIn"
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <LinkedinIcon />
-              </a>
-            </div>
+            {socialLinks.length > 0 && (
+              <div className="mt-4 flex gap-3">
+                {socialLinks.map(({ label, href, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    aria-label={label}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    <Icon />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           <div>
@@ -119,6 +137,22 @@ export function Footer() {
             <ul className="mt-3 space-y-2">
               {companyLinks.map((link) => (
                 <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold">Legal</h3>
+            <ul className="mt-3 space-y-2">
+              {legalPages.map((link) => (
+                <li key={link.href}>
                   <Link
                     href={link.href}
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -156,20 +190,22 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-border/60 pt-6">
-          <p className="text-xs text-muted-foreground">
-            Privacy notice: Buk Digital processes personal information submitted
-            through this website (such as your name and contact details) solely
-            to respond to your enquiry or booking, in line with the Protection
-            of Personal Information Act (POPIA). We do not sell or share your
-            information with third parties. To access, correct or delete your
-            information, email{" "}
-            <a href={siteConfig.emailHref} className="underline">
-              {siteConfig.email}
-            </a>
-            .
+          {identityLine && (
+            <p className="text-xs text-muted-foreground">{identityLine}</p>
+          )}
+          <p className="mt-2 text-xs text-muted-foreground">
+            We process personal information submitted through this website in
+            line with the Protection of Personal Information Act (POPIA). See
+            our{" "}
+            <Link href="/privacy" className="underline">
+              Privacy Policy
+            </Link>{" "}
+            for what we collect, who we share it with and how to access,
+            correct or delete it.
           </p>
           <p className="mt-4 text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Buk Digital. All rights reserved.
+            &copy; {new Date().getFullYear()} {legalEntity.tradingName}. All
+            rights reserved.
           </p>
         </div>
       </div>

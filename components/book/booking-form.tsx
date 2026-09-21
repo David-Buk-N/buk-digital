@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { ConsentFields } from "@/components/forms/consent-fields";
 
 const SERVICES = ["Custom Web App", "Software Solution", "Consultation"];
 
@@ -54,6 +55,7 @@ export function BookingForm() {
   const [date, setDate] = useState<Date | undefined>();
   const [time, setTime] = useState("");
   const [brief, setBrief] = useState("");
+  const [marketingOptIn, setMarketingOptIn] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -96,6 +98,7 @@ export function BookingForm() {
           service,
           dateTime: dateTime.toISOString(),
           brief,
+          marketingOptIn,
         }),
       });
 
@@ -289,6 +292,12 @@ export function BookingForm() {
         </p>
       )}
 
+      <ConsentFields
+        marketingOptIn={marketingOptIn}
+        onMarketingChange={setMarketingOptIn}
+        action="booking a session"
+      />
+
       <Button type="submit" size="lg" className="w-full gap-3" disabled={submitting}>
         {submitting ? (
           <>
@@ -301,12 +310,6 @@ export function BookingForm() {
           </>
         )}
       </Button>
-
-      <p className="text-xs text-muted-foreground">
-        By submitting this form you consent to Buk Digital processing your
-        details to respond to your booking, in line with POPIA. We never share
-        your information.
-      </p>
     </form>
   );
 }

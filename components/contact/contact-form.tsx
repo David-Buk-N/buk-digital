@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { ConsentFields } from "@/components/forms/consent-fields";
 
 interface FormErrors {
   name?: string;
@@ -20,6 +21,7 @@ export function ContactForm() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const [marketingOptIn, setMarketingOptIn] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -45,7 +47,7 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone, message }),
+        body: JSON.stringify({ name, email, phone, message, marketingOptIn }),
       });
 
       const data = await res.json();
@@ -147,6 +149,12 @@ export function ContactForm() {
           <p className="text-sm text-destructive">{errors.message}</p>
         )}
       </div>
+
+      <ConsentFields
+        marketingOptIn={marketingOptIn}
+        onMarketingChange={setMarketingOptIn}
+        action="sending this message"
+      />
 
       {errors.submit && (
         <p className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
