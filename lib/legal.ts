@@ -31,6 +31,28 @@ export const legalContact = {
   phone: siteConfig.phone,
 } as const;
 
+/**
+ * Payment provider.
+ *
+ * `live` stays false while merchant onboarding is in progress. Until it flips,
+ * the policies describe payment generically and do NOT name the provider as a
+ * recipient of personal information, because it does not process any yet.
+ * Set it to true on approval and the Terms, Refund Policy and Privacy Policy
+ * all switch to the Stitch wording together.
+ *
+ * TODO on approval: confirm the provider's full registered name for the
+ * Privacy Policy, and re-check its privacy policy URL.
+ */
+export const payments = {
+  provider: "Stitch",
+  providerUrl: "https://stitch.money",
+  providerPrivacyUrl: "https://stitch.money/legal/privacy-policy",
+  /** Flip to true once onboarding is approved and clients can actually pay. */
+  live: false,
+  /** Clients pay via a link sent with the invoice; there is no on-site checkout. */
+  method: "link" as "link" | "checkout",
+} as const;
+
 /** The date shown on each policy. Update whenever a policy's wording changes. */
 export const LEGAL_LAST_UPDATED = "21 September 2026";
 

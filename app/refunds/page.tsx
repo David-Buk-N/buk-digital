@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal/legal-page";
-import { legalContact } from "@/lib/legal";
+import { legalContact, payments } from "@/lib/legal";
 
 // DRAFT — prepared as a starting point, not as legal advice. Refund terms
 // interact with the Consumer Protection Act; have this reviewed before relying
@@ -14,6 +14,8 @@ export const metadata: Metadata = {
 };
 
 export default function RefundsPage() {
+  const via = payments.live ? ` through ${payments.provider}` : "";
+
   return (
     <LegalPage
       title="Refund & Cancellation Policy"
@@ -121,14 +123,25 @@ export default function RefundsPage() {
       <h2 id="payment-problems">8. Duplicate and failed payments</h2>
       <p>
         Tell us about a duplicate or incorrect payment and we will refund it in
-        full once confirmed, normally within 7 business days. Refunds go back to
-        the account the payment came from.
+        full once confirmed, normally within 7 business days.
+      </p>
+      <p>
+        A payment that fails or is declined does not reach us, so there is
+        nothing for us to refund. If money left your account but the payment
+        shows as failed, contact us with the date and amount and we will trace
+        it{via ? ` with ${payments.provider}` : " with our payment provider"}.
       </p>
 
-      <h2 id="timing">9. Refund timing</h2>
+      <h2 id="timing">9. How refunds are paid</h2>
       <p>
-        Approved refunds are paid by electronic funds transfer within 14 days of
-        agreeing the amount. We will confirm the amount and the date in writing.
+        Refunds are returned{via} to the account the original payment came
+        from. We cannot pay a refund to a different account, which protects
+        both of us against fraud.
+      </p>
+      <p>
+        Approved refunds are processed within 14 days of agreeing the amount.
+        How quickly the money reflects then depends on your bank. We will
+        confirm the amount and the date in writing.
       </p>
 
       <h2 id="consumer-rights">10. Your rights as a consumer</h2>

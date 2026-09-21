@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal/legal-page";
 import { EntityDetails } from "@/components/legal/entity-details";
-import { legalContact, legalEntity, resolved } from "@/lib/legal";
+import { legalContact, legalEntity, payments, resolved } from "@/lib/legal";
 
 // DRAFT — prepared as a starting point, not as legal advice. The processing
 // described here mirrors what the site actually does today (see
@@ -168,8 +168,34 @@ export default function PrivacyPage() {
               <td>Website usage statistics</td>
             </tr>
           )}
+          {payments.live && (
+            <tr>
+              <td>{payments.provider}</td>
+              <td>
+                Processing payments you make against our invoices, and
+                confirming them to us
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
+      {payments.live && (
+        <p>
+          When you pay an invoice, you enter your payment details directly with{" "}
+          {payments.provider}, not with us. We receive confirmation that the
+          payment succeeded and a transaction reference, and we never see or
+          store your banking credentials or card numbers.{" "}
+          {payments.provider} handles that information under its own{" "}
+          <a
+            href={payments.providerPrivacyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            privacy policy
+          </a>
+          .
+        </p>
+      )}
       <p>
         We may also disclose information where the law requires it, or to
         establish or defend a legal claim.
@@ -177,12 +203,19 @@ export default function PrivacyPage() {
 
       <h2 id="cross-border">5. Information sent outside South Africa</h2>
       <p>
-        The providers above process information on servers outside South
-        Africa. POPIA permits these transfers where the recipient is subject to
-        laws or binding agreements providing comparable protection, and these
-        providers contract on terms that require it. By using this website you
-        understand that your information is processed in this way.
+        Some of the providers above, including Vercel and Google, process
+        information on servers outside South Africa. POPIA permits these
+        transfers where the recipient is subject to laws or binding agreements
+        providing comparable protection, and these providers contract on terms
+        that require it. By using this website you understand that your
+        information is processed in this way.
       </p>
+      {payments.live && (
+        <p>
+          {payments.provider} is a South African provider and processes payment
+          information accordingly.
+        </p>
+      )}
 
       <h2 id="cookies">6. Cookies and tracking</h2>
       {analyticsEnabled ? (

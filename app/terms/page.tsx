@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal/legal-page";
 import { EntityDetails } from "@/components/legal/entity-details";
-import { contractingName, legalContact, legalEntity, resolved } from "@/lib/legal";
+import {
+  contractingName,
+  legalContact,
+  legalEntity,
+  payments,
+  resolved,
+} from "@/lib/legal";
 
 // DRAFT — prepared as a starting point, not as legal advice. Have a South
 // African attorney review this against the business's actual contracts, tax
@@ -73,10 +79,28 @@ export default function TermsPage() {
           Unless your quote says otherwise, a deposit is payable before work
           begins and the balance is payable on completion, before launch.
         </li>
-        <li>
-          Payment is by electronic funds transfer to the bank account shown on
-          the invoice, unless we agree another method in writing.
-        </li>
+        {payments.live ? (
+          <li>
+            Payment is made through the secure payment link we send with your
+            invoice, processed by our payment provider,{" "}
+            <a
+              href={payments.providerUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {payments.provider}
+            </a>
+            . You enter your payment details with the provider, not with us: we
+            never see or store your banking credentials or card numbers, and
+            receive only confirmation that a payment succeeded.
+          </li>
+        ) : (
+          <li>
+            Payment is made using the method stated on your invoice. Payments
+            are handled by a third-party payment provider, so we never see or
+            store your banking credentials or card numbers.
+          </li>
+        )}
         <li>Invoices are payable within 7 days of the invoice date.</li>
         <li>
           Hosting and maintenance is billed monthly in advance and continues

@@ -30,9 +30,18 @@ Also update `LEGAL_LAST_UPDATED` whenever a policy's wording changes.
       Regulator's page rather than naming them. Confirm what applies to you.
 - [ ] **Information Officer registration** — registering with the Regulator is a
       separate step from naming one on this page
-- [ ] **Payment terms** — `/terms` says payment is by EFT against an invoice,
-      because there is no online checkout yet. Rewrite clause 5 when Stitch or
-      any other gateway goes live
+- [ ] **When Stitch is approved, set `payments.live = true`** in `lib/legal.ts`.
+      That one flag switches three documents at once: the Terms name Stitch and
+      describe the payment link, the Refund Policy says refunds are returned
+      through Stitch, and the Privacy Policy adds Stitch as a recipient with a
+      link to its privacy policy. Until then none of them claim Stitch processes
+      anyone's data, which is what your compliance review asked for
+- [ ] **Confirm Stitch's full registered name** and its current privacy policy
+      URL before flipping that flag
+- [ ] **On-site checkout** — there is still no checkout in the codebase, so the
+      Terms describe paying by a link sent with the invoice. If you later add a
+      checkout, set `payments.method` to `"checkout"` and revisit clause 5, plus
+      the pre-payment disclosures in section 20 of the compliance review
 - [ ] **Deposit split** — clause 5 says "a deposit before work begins, balance on
       completion" without percentages. Set your actual terms
 - [ ] **Testing window** — clause 9 assumes 7 days; clause 5 assumes invoices are
