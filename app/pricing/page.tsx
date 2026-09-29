@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PricingSection } from "@/components/sections/pricing-section";
+import { detectCurrency } from "@/lib/currency-server";
 import {
   Accordion,
   AccordionContent,
@@ -7,11 +8,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export const metadata: Metadata = {
-  title: "Pricing",
-  description:
-    "Three service categories: Business Development from R5,000, Digital Presence website packages from R5,000 plus monthly hosting, and Custom Solutions quoted per project. All prices in ZAR.",
-};
+// The page already renders per request for currency, so the description can
+// match what the visitor actually sees rather than advertising dollars to a
+// South African searcher.
+export async function generateMetadata(): Promise<Metadata> {
+  const currency = await detectCurrency();
+  const from = currency === "ZAR" ? "R5,000" : "$299";
+
+  return {
+    title: "Pricing",
+    description: `Three service categories: Business Development from ${from}, Digital Presence website packages from ${from} plus monthly hosting, and Custom Solutions quoted per project. Invoiced in South African rand.`,
+  };
+}
 
 const faqs = [
   {
@@ -56,7 +64,9 @@ const faqs = [
   },
 ];
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const currency = await detectCurrency();
+
   return (
     <div className="pt-24">
       <div className="mx-auto max-w-2xl px-4 text-center sm:px-6">
@@ -65,12 +75,11 @@ export default function PricingPage() {
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
           Three ways to work with us, in the order most businesses need them —
-          brand first, then your website, then anything custom. All prices in
-          ZAR.
+          brand first, then your website, then anything custom.
         </p>
       </div>
 
-      <PricingSection />
+      <PricingSection currency={currency} />
 
       <section className="mx-auto max-w-3xl px-4 pb-24 sm:px-6">
         <h2 className="text-center text-3xl font-semibold tracking-tight">

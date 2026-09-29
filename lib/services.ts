@@ -1,4 +1,10 @@
 import { Cpu, Globe, Palette, type LucideIcon } from "lucide-react";
+import {
+  formatMonthly,
+  formatPrice,
+  type Currency,
+  type Price,
+} from "@/lib/currency";
 
 /**
  * The service catalogue, in the order clients move through it:
@@ -12,10 +18,10 @@ import { Cpu, Globe, Palette, type LucideIcon } from "lucide-react";
 
 export interface ServicePackage {
   name: string;
-  /** One-time fee, e.g. "R5,000". */
-  onceOff: string;
-  /** Recurring fee in rand per month, or null when nothing recurs. */
-  monthly: string | null;
+  /** One-time fee. */
+  onceOff: Price;
+  /** Recurring monthly fee, or null when nothing recurs. */
+  monthly: Price | null;
   description: string;
   features: string[];
   highlighted?: boolean;
@@ -31,15 +37,18 @@ export interface ServiceCategory {
   tagline: string;
   /** Longer copy for the pricing page. */
   description: string;
-  /** Headline price, e.g. "From R5,000" or "Quote based". */
-  price: string;
+  /** Cheapest once-off price, or null when the category is quote-based. */
+  from: Price | null;
+  /** Shown in place of a figure when quote-based, e.g. "Quote based". */
+  quoteLabel?: string;
+  /** "once-off" or "per project". */
   priceNote: string;
-  /** Recurring cost, or null where there is none. */
-  recurring: string | null;
-  /** Qualifier shown after the recurring cost, e.g. "where support is needed". */
+  /** Cheapest recurring price, or null when nothing recurs. */
+  fromMonthly: Price | null;
+  /** Shown in place of a monthly figure when support is quoted. */
+  recurringLabel?: string;
+  /** Qualifier after the recurring cost, e.g. "where support is needed". */
   recurringNote?: string;
-  /** Compact once-off + recurring summary for the home page selector. */
-  priceSummary: string;
   icon: LucideIcon;
   includes: string[];
   packages?: ServicePackage[];
@@ -56,10 +65,9 @@ export const serviceCategories: ServiceCategory[] = [
       "Branding and business foundations that make you look established from day one.",
     description:
       "Establish and strengthen your brand and business foundation — the identity, guidelines and paperwork a credible business runs on.",
-    price: "From R5,000",
+    from: { zar: 5000, usd: 299 },
     priceNote: "once-off",
-    recurring: null,
-    priceSummary: "From R5,000 once-off",
+    fromMonthly: null,
     icon: Palette,
     includes: [
       "Branding and visual identity",
@@ -79,10 +87,9 @@ export const serviceCategories: ServiceCategory[] = [
       "Your website, domain, email and hosting — built, secured and maintained.",
     description:
       "Everything needed to build and maintain your presence online, as a once-off build plus a monthly fee that keeps it fast, secure and up to date.",
-    price: "From R5,000",
+    from: { zar: 5000, usd: 299 },
     priceNote: "once-off",
-    recurring: "From R500/month",
-    priceSummary: "From R5,000 + from R500/month",
+    fromMonthly: { zar: 500, usd: 29 },
     icon: Globe,
     includes: [
       "Website design and development",
@@ -96,8 +103,8 @@ export const serviceCategories: ServiceCategory[] = [
     packages: [
       {
         name: "Starter",
-        onceOff: "R5,000",
-        monthly: "R500",
+        onceOff: { zar: 5000, usd: 299 },
+        monthly: { zar: 500, usd: 29 },
         description:
           "A professional online presence for small businesses that need to get found.",
         features: [
@@ -111,8 +118,8 @@ export const serviceCategories: ServiceCategory[] = [
       },
       {
         name: "Professional",
-        onceOff: "R10,000",
-        monthly: "R750",
+        onceOff: { zar: 10000, usd: 599 },
+        monthly: { zar: 750, usd: 45 },
         description:
           "A custom-designed site with the integrations a growing business needs.",
         features: [
@@ -138,11 +145,12 @@ export const serviceCategories: ServiceCategory[] = [
       "For businesses that need more than standard branding or a website.",
     description:
       "Bespoke technology scoped around your business. Priced per project on scope, complexity, integrations, development time and ongoing requirements.",
-    price: "Quote based",
+    from: null,
+    quoteLabel: "Quote based",
     priceNote: "per project",
-    recurring: "Quoted",
+    fromMonthly: null,
+    recurringLabel: "Quoted",
     recurringNote: "where support is needed",
-    priceSummary: "Quoted per project",
     icon: Cpu,
     includes: [
       "Web applications",
@@ -173,3 +181,35 @@ export const serviceLinks = serviceCategories.map((category) => ({
   href: `/pricing#${category.id}`,
   label: category.name,
 }));
+
+/** Headline price for a category, e.g. "From $299" or "Quote based". */
+export function categoryPrice(
+  category: ServiceCategory,
+  currency: Currency
+): string {
+  return category.from
+    ? `From ${formatPrice(category.from, currency)}`
+    : (category.quoteLabel ?? "Quoted");
+}
+
+/** Recurring cost for a category, or null where nothing recurs. */
+export function categoryRecurring(
+  category: ServiceCategory,
+  currency: Currency
+): string | null {
+  if (category.fromMonthly)
+    return `From ${formatMonthly(category.fromMonthly, currency)}`;
+  return category.recurringLabel ?? null;
+}
+
+/** Compact one-line summary for the home page selector. */
+export function categorySummary(
+  category: ServiceCategory,
+  currency: Currency
+): string {
+  if (!category.from) return `Quoted ${category.priceNote}`;
+  const once = formatPrice(category.from, currency);
+  if (category.fromMonthly)
+    return `From ${once} + from ${formatMonthly(category.fromMonthly, currency)}`;
+  return `From ${once} ${category.priceNote}`;
+}

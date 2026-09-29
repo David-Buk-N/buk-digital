@@ -10,7 +10,8 @@ import {
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { serviceCategories } from "@/lib/services";
+import { categorySummary, serviceCategories } from "@/lib/services";
+import type { Currency } from "@/lib/currency";
 
 const services = serviceCategories;
 
@@ -64,7 +65,7 @@ function usePrefersReducedMotion(): boolean {
   );
 }
 
-export function ServicesSection() {
+export function ServicesSection({ currency }: { currency: Currency }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
@@ -161,7 +162,7 @@ export function ServicesSection() {
         {current.tagline}
       </p>
       <p className="mt-3 font-mono text-xs text-foreground">
-        {current.priceSummary}
+        {categorySummary(current, currency)}
       </p>
       <Link
         href={current.cta.href}

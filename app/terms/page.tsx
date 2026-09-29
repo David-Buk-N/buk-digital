@@ -112,6 +112,11 @@ export default function TermsPage() {
             store your banking credentials or card numbers.
           </li>
         )}
+        <li>
+          All amounts are invoiced and payable in South African rand (ZAR).
+          Prices shown on our website in any other currency are for
+          convenience only and are not the amount charged.
+        </li>
         <li>Invoices are payable within 7 days of the invoice date.</li>
         <li>
           Hosting and maintenance is billed monthly in advance and continues
