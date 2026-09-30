@@ -18,7 +18,6 @@ import {
 } from "@/lib/services";
 import {
   USD_REFERENCE,
-  billedInZar,
   formatMonthly,
   formatPrice,
   type Currency,
@@ -27,8 +26,8 @@ import {
 
 /**
  * Once-off and monthly always appear in the same arrangement, so a visitor can
- * tell at a glance what they pay now and what recurs. When dollars are on
- * display, the rand amount sits underneath, because rand is what we invoice.
+ * tell at a glance what they pay now and what recurs. Each view shows a single
+ * currency: rand in South Africa, dollars everywhere else.
  */
 function PriceBlock({
   once,
@@ -48,9 +47,6 @@ function PriceBlock({
   monthlyNote?: string;
   currency: Currency;
 }) {
-  const onceZar = once ? billedInZar(once, currency) : null;
-  const monthlyZar = monthly ? billedInZar(monthly, currency, "/month") : null;
-
   return (
     <div>
       <div className="flex items-baseline gap-2">
@@ -59,12 +55,6 @@ function PriceBlock({
         </span>
         <span className="text-sm text-muted-foreground">{onceNote}</span>
       </div>
-      {onceZar && (
-        <p className="mt-1 text-xs text-muted-foreground">
-          {onceZar} billed in ZAR
-        </p>
-      )}
-
       <div className="mt-3 border-t border-border pt-3">
         {monthly || monthlyLabel ? (
           <>
@@ -76,11 +66,6 @@ function PriceBlock({
                 {monthlyNote ?? "hosting, maintenance & support"}
               </span>
             </div>
-            {monthlyZar && (
-              <p className="mt-1 text-xs text-muted-foreground">
-                {monthlyZar} billed in ZAR
-              </p>
-            )}
           </>
         ) : (
           <span className="text-sm text-muted-foreground">No monthly fee</span>
@@ -157,24 +142,12 @@ export function PricingSection({ currency }: { currency: Currency }) {
                     Once-off:{" "}
                   </span>
                   {categoryPrice(category, currency)}
-                  {category.from && showingDollars && (
-                    <span className="text-muted-foreground">
-                      {" "}
-                      ({billedInZar(category.from, currency)})
-                    </span>
-                  )}
                 </span>
                 <span className="text-sm sm:text-base">
                   <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground sm:hidden">
                     Monthly:{" "}
                   </span>
                   {recurring ?? "—"}
-                  {category.fromMonthly && showingDollars && (
-                    <span className="text-muted-foreground">
-                      {" "}
-                      ({billedInZar(category.fromMonthly, currency, "/month")})
-                    </span>
-                  )}
                   {!category.fromMonthly && category.recurringNote && (
                     <span className="text-muted-foreground">
                       {" "}
@@ -292,11 +265,11 @@ export function PricingSection({ currency }: { currency: Currency }) {
         <div className="mx-auto mt-16 max-w-3xl space-y-2 text-center text-xs text-muted-foreground">
           {showingDollars ? (
             <p>
-              Dollar prices are shown for convenience. Invoices are issued and
-              collected in South African rand at the amounts shown, so what
-              your bank charges depends on its exchange rate on the day. Dollar
-              figures were set against R{USD_REFERENCE.zarPerUsd} to the dollar
-              on {USD_REFERENCE.setOn} and are reviewed periodically.
+              All prices in USD. Invoices are issued and collected in South
+              African rand at the equivalent amount, so the final charge
+              depends on your bank&apos;s exchange rate on the day. Dollar
+              prices were set on {USD_REFERENCE.setOn} and are reviewed
+              periodically.
             </p>
           ) : (
             <p>All prices in ZAR.</p>
