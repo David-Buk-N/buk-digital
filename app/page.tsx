@@ -5,17 +5,17 @@ import { ProcessSection } from "@/components/sections/process-section";
 import { CtaBand } from "@/components/sections/cta-band";
 import { detectCurrency } from "@/lib/currency-server";
 import { formatPrice } from "@/lib/currency";
-import { serviceCategories } from "@/lib/services";
+import { pricingModel } from "@/lib/services";
 
 // Renders per request for currency, so the description quotes the same
 // currency the visitor sees on the page.
 export async function generateMetadata(): Promise<Metadata> {
   const currency = await detectCurrency();
-  const from = formatPrice(serviceCategories[0].from!, currency);
+  const monthly = formatPrice(pricingModel.fromMonthly, currency);
 
   return {
     title: "Buk Digital — Branding, Websites & Custom Software for SMEs",
-    description: `Buk Digital builds brands, business websites and custom software for growing businesses — branding from ${from}, website packages with managed hosting, and custom solutions quoted per project. Book a free session today.`,
+    description: `Buk Digital builds brands, business websites and custom software for growing businesses — branding, websites, hosting and automation, tailored from ${monthly}/month. Book a free session today.`,
   };
 }
 

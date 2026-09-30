@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
-import { PricingSection } from "@/components/sections/pricing-section";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  PricingSection,
+  QuoteCta,
+  ServiceBlocks,
+  WhyBukDigital,
+} from "@/components/sections/pricing-section";
 import { detectCurrency } from "@/lib/currency-server";
 import { formatPrice, type Currency } from "@/lib/currency";
-import { serviceCategories } from "@/lib/services";
+import { pricingModel } from "@/lib/services";
 import {
   Accordion,
   AccordionContent,
@@ -10,69 +18,37 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// The page already renders per request for currency, so the description can
-// match what the visitor actually sees rather than advertising dollars to a
-// South African searcher.
+// The page renders per request for currency, so the description quotes the
+// same currency the visitor sees rather than advertising dollars to a South
+// African searcher.
 export async function generateMetadata(): Promise<Metadata> {
   const currency = await detectCurrency();
-  const from = formatPrice(serviceCategories[0].from!, currency);
+  const monthly = formatPrice(pricingModel.fromMonthly, currency);
 
   return {
     title: "Pricing",
-    description: `Three service categories: Business Development from ${from}, Digital Presence website packages from ${from} plus monthly hosting, and Custom Solutions quoted per project.`,
+    description: `Websites, digital presence, branding, automation and custom technology for growing businesses. Tailored solutions from ${monthly}/month, quoted around what your business needs.`,
   };
 }
 
 /**
- * Figures come from the catalogue rather than being written out, so the FAQ
- * cannot quote a price the cards above it no longer charge — and so a visitor
- * never sees rand here while the rest of the page is in dollars.
+ * Kept deliberately short. The design brief asks for a concise, service-led
+ * page, but the ownership and billing answers are the ones clients ask before
+ * paying — and the compliance review specifically wanted website ownership
+ * spelled out — so four remain.
  */
 function buildFaqs(currency: Currency) {
-  const [businessDev, digitalPresence] = serviceCategories;
-  const [starter, professional] = digitalPresence.packages!;
-  const price = (value: Parameters<typeof formatPrice>[0]) =>
-    formatPrice(value, currency);
+  const monthly = formatPrice(pricingModel.fromMonthly, currency);
+  const setup = formatPrice(pricingModel.setup, currency);
 
   return [
     {
-      question: "What's the difference between the three categories?",
-      answer:
-        "Business Development covers your brand and business foundations — identity, logo, guidelines and setup. Digital Presence is your website and everything that keeps it running: domain, email, hosting, security and maintenance. Custom Solutions is for software built around your business, like portals, dashboards, CRM and automation. Many clients start with one and add another later.",
+      question: "What does the setup fee cover?",
+      answer: `The ${setup} setup fee covers implementation and initial setup — the work that gets your solution designed, built and live. It is a one-time fee, and the final amount depends on the scope of your project, which we confirm in your quote before any work starts.`,
     },
     {
-      question: "Which costs are once-off and which are monthly?",
-      answer: `Business Development is once-off, from ${price(
-        businessDev.from!
-      )}, with no monthly fee. Digital Presence has a once-off build fee (${price(
-        starter.onceOff
-      )} for Starter, ${price(
-        professional.onceOff
-      )} for Professional) plus a monthly hosting, maintenance and support fee (${price(
-        starter.monthly!
-      )} or ${price(
-        professional.monthly!
-      )}). Custom Solutions is quoted per project, and where a project needs ongoing support or hosting, that monthly amount is quoted with it so there are no surprises.`,
-    },
-    {
-      question: "What does the monthly hosting & maintenance fee cover?",
-      answer:
-        "Fast, secure managed hosting, your SSL certificate, software and security updates, regular backups, uptime monitoring, and small content tweaks like updating text, images or business hours. It is billed monthly in advance and you can cancel at any time.",
-    },
-    {
-      question: "How long does it take?",
-      answer:
-        "Branding work in Business Development typically takes 1–2 weeks. A Starter site usually launches within 1–2 weeks of receiving your content, and a Professional site takes 2–4 weeks depending on integrations. Custom Solutions are scoped individually — you'll get a realistic timeline in your discovery session before committing.",
-    },
-    {
-      question: "Can I upgrade from Starter to Professional later?",
-      answer:
-        "Yes. Many clients start with Starter and upgrade as they grow. You pay the difference in the once-off fee, and your hosting moves to the new monthly rate — no rebuild from scratch and no lost content.",
-    },
-    {
-      question: "What do I need to provide before we start?",
-      answer:
-        "Your business details, plus the text and images you'd like on the site. If you don't have a logo or brand yet, that's exactly what Business Development is for, and we can do it first. Not sure what to write? Most clients finalise their content in a single call with us.",
+      question: "What does the monthly fee cover?",
+      answer: `From ${monthly} a month, depending on what you need: managed hosting, your SSL certificate, software and security updates, regular backups, uptime monitoring and small content updates like changing text, images or business hours. It is billed monthly in advance and you can cancel at any time.`,
     },
     {
       question: "Do I own my website and domain?",
@@ -80,34 +56,69 @@ function buildFaqs(currency: Currency) {
         "Yes. The domain is registered in your name and the website is yours once paid in full. If you ever choose to move, we'll hand over everything you need. Full detail is in our Terms & Conditions.",
     },
     {
-      question: "Why is Custom Solutions quote-based?",
+      question: "Why is pricing quote-based?",
       answer:
-        "Because a two-week internal tool and a six-month client portal aren't the same job. Pricing depends on scope, complexity, the systems it must integrate with, development time and any ongoing requirements. We scope it in a discovery session and give you a fixed quote before any work starts.",
+        "Because a landing page and a client portal aren't the same job. Pricing depends on scope, complexity, the systems it must integrate with and any ongoing requirements. We scope it with you first, then give you a fixed quote before work starts — no surprises later.",
     },
   ];
 }
 
 export default async function PricingPage() {
   const currency = await detectCurrency();
+  const monthly = formatPrice(pricingModel.fromMonthly, currency);
   const faqs = buildFaqs(currency);
 
   return (
     <div className="pt-24">
-      <div className="mx-auto max-w-2xl px-4 text-center sm:px-6">
+      {/* Hero */}
+      <section className="mx-auto max-w-3xl px-4 text-center sm:px-6">
         <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-          Simple, honest pricing
+          Digital solutions built around your business
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground">
-          Three ways to work with us, in the order most businesses need them —
-          brand first, then your website, then anything custom.
+        <p className="mt-6 text-lg text-muted-foreground">
+          Websites, digital presence, branding, automation and custom
+          technology — built to help your business operate and grow online.
         </p>
+        <div className="mt-8">
+          <Button size="lg" asChild>
+            <Link href="/contact">
+              Get a Quote Today
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+          </Button>
+        </div>
+        <p className="mt-6 text-sm text-muted-foreground">
+          Plans can be tailored to your business needs, with solutions starting
+          from {monthly}/month.
+        </p>
+      </section>
+
+      {/* What we do */}
+      <section className="mx-auto mt-24 max-w-2xl px-4 text-center sm:px-6">
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-primary">
+          What we do
+        </p>
+        <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">
+          Three ways we work with businesses
+        </h2>
+        <p className="mt-4 text-muted-foreground">
+          From getting your brand and foundations in order, to the website
+          customers find you through, to custom software when off-the-shelf
+          won&apos;t do. Take one, or all three.
+        </p>
+      </section>
+
+      <div className="mt-20">
+        <ServiceBlocks />
       </div>
 
       <PricingSection currency={currency} />
 
-      <section className="mx-auto max-w-3xl px-4 pb-24 sm:px-6">
-        <h2 className="text-center text-3xl font-semibold tracking-tight">
-          Frequently asked questions
+      <WhyBukDigital />
+
+      <section className="mx-auto max-w-3xl px-4 pt-20 sm:px-6">
+        <h2 className="text-center text-2xl font-semibold tracking-tight sm:text-3xl">
+          Common questions
         </h2>
         <Accordion type="single" collapsible className="mt-8">
           {faqs.map((faq, index) => (
@@ -122,6 +133,8 @@ export default async function PricingPage() {
           ))}
         </Accordion>
       </section>
+
+      <QuoteCta />
     </div>
   );
 }

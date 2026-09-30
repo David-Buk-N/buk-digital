@@ -1,299 +1,217 @@
 import Link from "next/link";
-import { Check } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  categoryPrice,
-  categoryRecurring,
-  serviceCategories,
-  type ServiceCategory,
-} from "@/lib/services";
-import {
-  USD_REFERENCE,
-  formatMonthly,
-  formatPrice,
-  type Currency,
-  type Price,
-} from "@/lib/currency";
+import { serviceCategories, pricingModel } from "@/lib/services";
+import { USD_REFERENCE, formatPrice, type Currency } from "@/lib/currency";
 
 /**
- * Once-off and monthly always appear in the same arrangement, so a visitor can
- * tell at a glance what they pay now and what recurs. Each view shows a single
- * currency: rand in South Africa, dollars everywhere else.
+ * The pricing page leads with what we do and introduces price afterwards, so
+ * these are service sections rather than plan-comparison cards. There is one
+ * pricing model for the whole site (a monthly fee from a floor, plus a
+ * one-time setup), quoted per client.
  */
-function PriceBlock({
-  once,
-  onceLabel,
-  onceNote,
-  monthly,
-  monthlyLabel,
-  monthlyNote,
-  currency,
-}: {
-  once: Price | null;
-  /** Used instead of a figure when quote-based. */
-  onceLabel?: string;
-  onceNote: string;
-  monthly: Price | null;
-  monthlyLabel?: string;
-  monthlyNote?: string;
-  currency: Currency;
-}) {
-  return (
-    <div>
-      <div className="flex items-baseline gap-2">
-        <span className="text-4xl font-semibold tracking-tight">
-          {once ? formatPrice(once, currency) : onceLabel}
-        </span>
-        <span className="text-sm text-muted-foreground">{onceNote}</span>
-      </div>
-      <div className="mt-3 border-t border-border pt-3">
-        {monthly || monthlyLabel ? (
-          <>
-            <div className="flex items-baseline gap-2">
-              <span className="text-lg font-semibold">
-                {monthly ? formatMonthly(monthly, currency) : monthlyLabel}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                {monthlyNote ?? "hosting, maintenance & support"}
-              </span>
-            </div>
-          </>
-        ) : (
-          <span className="text-sm text-muted-foreground">No monthly fee</span>
-        )}
-      </div>
-    </div>
-  );
-}
 
-function FeatureList({ features }: { features: string[] }) {
+/** The three service blocks, each ending in a route to a quote. */
+export function ServiceBlocks() {
   return (
-    <ul className="space-y-3">
-      {features.map((feature) => (
-        <li key={feature} className="flex gap-3 text-sm">
-          <Check
-            className="mt-0.5 size-4 shrink-0 text-primary"
-            aria-hidden="true"
-          />
-          <span>{feature}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function CategoryHeading({ category }: { category: ServiceCategory }) {
-  return (
-    <div className="max-w-2xl">
-      <p className="font-mono text-xs uppercase tracking-[0.16em] text-primary">
-        {category.number} — {category.name}
-      </p>
-      <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
-        {category.tagline}
-      </h2>
-      <p className="mt-3 text-muted-foreground">{category.description}</p>
-    </div>
-  );
-}
-
-export function PricingSection({ currency }: { currency: Currency }) {
-  const showingDollars = currency === "USD";
-
-  return (
-    <section className="py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        {/* At a glance: the whole billing structure in three rows. */}
-        <div className="border-t border-border">
-          <div className="hidden grid-cols-[1.5fr_1fr_1fr] gap-4 border-b border-border py-3 sm:grid">
-            <span className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-              Category
-            </span>
-            <span className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-              Once-off
-            </span>
-            <span className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-              Monthly
-            </span>
-          </div>
-          {serviceCategories.map((category) => {
-            const recurring = categoryRecurring(category, currency);
-            return (
-              <div
-                key={category.id}
-                className="grid gap-1 border-b border-border py-4 sm:grid-cols-[1.5fr_1fr_1fr] sm:items-center sm:gap-4"
-              >
-                <Link
-                  href={`#${category.id}`}
-                  className="font-medium hover:text-primary"
-                >
-                  {category.name}
-                </Link>
-                <span className="text-sm sm:text-base">
-                  <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground sm:hidden">
-                    Once-off:{" "}
-                  </span>
-                  {categoryPrice(category, currency)}
+    <div className="mx-auto max-w-7xl space-y-24 px-4 sm:px-6">
+      {serviceCategories.map((category) => (
+        <section key={category.id} id={category.id} className="scroll-mt-24">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="flex size-10 items-center justify-center rounded-full border border-primary/40 bg-card text-primary">
+                  <category.icon className="size-5" aria-hidden="true" />
                 </span>
-                <span className="text-sm sm:text-base">
-                  <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground sm:hidden">
-                    Monthly:{" "}
-                  </span>
-                  {recurring ?? "—"}
-                  {!category.fromMonthly && category.recurringNote && (
-                    <span className="text-muted-foreground">
-                      {" "}
-                      {category.recurringNote}
-                    </span>
-                  )}
-                </span>
+                <p className="font-mono text-xs uppercase tracking-[0.16em] text-primary">
+                  {category.number} — {category.name}
+                </p>
               </div>
-            );
-          })}
-        </div>
-
-        {/* One block per category, in the order clients move through them. */}
-        <div className="mt-20 space-y-20">
-          {serviceCategories.map((category) => (
-            <div key={category.id} id={category.id} className="scroll-mt-24">
-              <CategoryHeading category={category} />
-
-              {category.packages ? (
-                <>
-                  <div className="mt-8">
-                    <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-                      Every package includes
-                    </p>
-                    <ul className="mt-2 flex flex-wrap gap-x-2 gap-y-1 text-sm text-muted-foreground">
-                      {category.includes.map((item, index) => (
-                        <li key={item}>
-                          {item}
-                          {index < category.includes.length - 1 && (
-                            <span className="ml-2 text-border">·</span>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="mt-6 grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
-                    {category.packages.map((pkg) => (
-                      <Card
-                        key={pkg.name}
-                        className={cn(
-                          // overflow-visible: the base Card clips children,
-                          // which would cut the floating badge in half
-                          "relative flex flex-col overflow-visible",
-                          pkg.highlighted &&
-                            "ring-primary shadow-lg shadow-primary/10"
-                        )}
-                      >
-                        {pkg.highlighted && (
-                          <Badge className="absolute -top-3 left-1/2 -translate-x-1/2">
-                            Most Popular
-                          </Badge>
-                        )}
-                        <CardHeader>
-                          <CardTitle className="text-xl">{pkg.name}</CardTitle>
-                          <p className="mt-1 text-sm text-muted-foreground">
-                            {pkg.description}
-                          </p>
-                          <div className="mt-4">
-                            <PriceBlock
-                              once={pkg.onceOff}
-                              onceNote="once-off"
-                              monthly={pkg.monthly}
-                              currency={currency}
-                            />
-                          </div>
-                        </CardHeader>
-                        <CardContent className="flex-1">
-                          <FeatureList features={pkg.features} />
-                        </CardContent>
-                        <CardFooter>
-                          <Button
-                            className="w-full"
-                            variant={pkg.highlighted ? "default" : "outline"}
-                            asChild
-                          >
-                            <Link href={category.cta.href}>
-                              {category.cta.label}
-                            </Link>
-                          </Button>
-                        </CardFooter>
-                      </Card>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <Card className="mt-8 flex flex-col gap-8 p-6 sm:p-8 lg:flex-row lg:items-start lg:justify-between">
-                  <div className="lg:max-w-xs">
-                    <PriceBlock
-                      once={category.from}
-                      onceLabel={category.quoteLabel}
-                      onceNote={category.priceNote}
-                      monthly={category.fromMonthly}
-                      monthlyLabel={category.recurringLabel}
-                      monthlyNote={category.recurringNote}
-                      currency={currency}
-                    />
-                    <Button className="mt-6 w-full" asChild>
-                      <Link href={category.cta.href}>{category.cta.label}</Link>
-                    </Button>
-                  </div>
-                  <div className="lg:flex-1">
-                    <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-                      What this covers
-                    </p>
-                    <div className="mt-4 sm:columns-2 sm:gap-8">
-                      <FeatureList features={category.includes} />
-                    </div>
-                  </div>
-                </Card>
-              )}
+              <h2 className="mt-5 text-2xl font-semibold tracking-tight sm:text-3xl">
+                {category.tagline}
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                {category.description}
+              </p>
+              <Button className="mt-8" asChild>
+                <Link href={category.quoteCta.href}>
+                  {category.quoteCta.label}
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </Link>
+              </Button>
             </div>
-          ))}
+
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
+                What this can include
+              </p>
+              <ul className="mt-4 grid border-t border-border sm:grid-cols-2 sm:gap-x-8">
+                {category.includes.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-center gap-3 border-b border-border py-3 text-sm"
+                  >
+                    <Check
+                      className="size-5 shrink-0 rounded-full bg-primary/15 p-1 text-primary"
+                      aria-hidden="true"
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Price, after the services. The monthly figure leads; the setup fee is stated
+ * plainly but sized so it does not compete with it.
+ */
+export function PricingSection({ currency }: { currency: Currency }) {
+  const monthly = formatPrice(pricingModel.fromMonthly, currency);
+  const setup = formatPrice(pricingModel.setup, currency);
+
+  return (
+    <section id="pricing" className="scroll-mt-24 py-24 sm:py-28">
+      <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+          Simple pricing. Built around your needs.
+        </h2>
+        <p className="mt-4 text-lg text-muted-foreground">
+          Every business is different. Tell us what you need and we&apos;ll
+          recommend the right solution.
+        </p>
+
+        <div className="mt-10 rounded-2xl border border-border bg-card p-8 sm:p-10">
+          <p className="text-5xl font-semibold tracking-tight sm:text-6xl">
+            From {monthly}
+            <span className="text-2xl text-muted-foreground sm:text-3xl">
+              /month
+            </span>
+          </p>
+          <p className="mt-4 text-muted-foreground">
+            Get a tailored quote based on the services your business needs.
+          </p>
+
+          <div className="mt-8 border-t border-border pt-6">
+            <p className="text-sm font-medium">Setup fee: {setup}</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              One-time implementation and initial setup. Final pricing depends
+              on the scope of your project.
+            </p>
+          </div>
+
+          <Button size="lg" className="mt-8 w-full sm:w-auto" asChild>
+            <Link href="/contact">
+              Get Your Quote
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+          </Button>
         </div>
 
-        <div className="mx-auto mt-16 max-w-3xl space-y-2 text-center text-xs text-muted-foreground">
-          {showingDollars ? (
-            <p>
-              All prices in USD. Invoices are issued and collected in South
-              African rand at the equivalent amount, so the final charge
-              depends on your bank&apos;s exchange rate on the day. Dollar
-              prices were set on {USD_REFERENCE.setOn} and are reviewed
-              periodically.
-            </p>
-          ) : (
-            <p>All prices in ZAR.</p>
-          )}
+        <div className="mt-10 space-y-2 text-left text-xs text-muted-foreground">
           <p>
-            Every quote states whether VAT applies. Monthly hosting,
-            maintenance and support is billed monthly in advance and can be
-            cancelled at any time — see our{" "}
+            {currency === "ZAR" ? (
+              "All prices in ZAR."
+            ) : (
+              <>
+                All prices in USD. Invoices are issued and collected in South
+                African rand at the equivalent amount, so the final charge
+                depends on your bank&apos;s exchange rate on the day. Dollar
+                prices were set on {USD_REFERENCE.setOn} and are reviewed
+                periodically.
+              </>
+            )}{" "}
+            Every quote states whether VAT applies. Monthly fees are billed
+            monthly in advance and can be cancelled at any time — see our{" "}
             <Link href="/refunds" className="underline">
               Refund &amp; Cancellation Policy
             </Link>
             .
           </p>
           <p>
-            One standard domain registration is included for the first 12
-            months, subject to availability and registry rules. Renewal fees
-            apply from the second year. Premium domains and transfers may be
-            charged separately.
+            Where a package includes a domain, one standard registration is
+            included for the first 12 months, subject to availability and
+            registry rules. Renewal fees apply from the second year. Premium
+            domains and transfers may be charged separately.
           </p>
           <p>
             Third-party costs — premium plugins, email plans, stock media,
             payment gateway or CRM fees — are quoted before purchase and billed
             separately.
           </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const reasons = [
+  {
+    title: "Tailored solutions",
+    body: "We scope around what your business actually needs, rather than fitting you into a fixed package.",
+  },
+  {
+    title: "One partner",
+    body: "Branding, website, domain, email, hosting and custom software from the same team.",
+  },
+  {
+    title: "Built to scale",
+    body: "Start with what you need now and add capability as the business grows.",
+  },
+  {
+    title: "Ongoing support",
+    body: "Managed hosting, maintenance and a real person to reach when something breaks.",
+  },
+];
+
+export function WhyBukDigital() {
+  return (
+    <section className="border-y border-border/60 py-20 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <h2 className="text-center text-3xl font-semibold tracking-tight">
+          Why Buk Digital
+        </h2>
+        <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          {reasons.map((reason) => (
+            <div key={reason.title}>
+              <h3 className="font-semibold">{reason.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {reason.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function QuoteCta() {
+  return (
+    <section className="py-24 sm:py-28">
+      <div className="mx-auto max-w-2xl px-4 text-center sm:px-6">
+        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+          Let&apos;s build something that works for your business.
+        </h2>
+        <p className="mt-4 text-lg text-muted-foreground">
+          Not sure which service you need? Tell us what you&apos;re trying to
+          achieve and we&apos;ll help you find the right solution.
+        </p>
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <Button size="lg" asChild>
+            <Link href="/contact">
+              Get Your Quote
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+          </Button>
+          <Button size="lg" variant="outline" asChild>
+            <Link href="/book">Talk to Us</Link>
+          </Button>
         </div>
       </div>
     </section>

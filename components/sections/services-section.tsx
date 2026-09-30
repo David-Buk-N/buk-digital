@@ -10,8 +10,8 @@ import {
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { categorySummary, serviceCategories } from "@/lib/services";
-import type { Currency } from "@/lib/currency";
+import { pricingModel, serviceCategories } from "@/lib/services";
+import { formatPrice, type Currency } from "@/lib/currency";
 
 const services = serviceCategories;
 
@@ -161,9 +161,6 @@ export function ServicesSection({ currency }: { currency: Currency }) {
       <p className="mx-auto mt-2 max-w-[30ch] text-sm leading-relaxed text-muted-foreground">
         {current.tagline}
       </p>
-      <p className="mt-3 font-mono text-xs text-foreground">
-        {categorySummary(current, currency)}
-      </p>
       <Link
         href={current.cta.href}
         className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
@@ -188,6 +185,16 @@ export function ServicesSection({ currency }: { currency: Currency }) {
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
             Three ways Buk Digital helps your business look credible, get
             found and run smoother.
+          </p>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Tailored to what you need, from{" "}
+            <span className="font-medium text-foreground">
+              {formatPrice(pricingModel.fromMonthly, currency)}/month
+            </span>{" "}
+            plus a {formatPrice(pricingModel.setup, currency)} setup fee.{" "}
+            <Link href="/pricing" className="underline underline-offset-4">
+              See pricing
+            </Link>
           </p>
 
           <ul className="mt-10 grid border-t border-border sm:grid-cols-2 sm:gap-x-8">

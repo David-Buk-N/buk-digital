@@ -1,10 +1,5 @@
 import { Cpu, Globe, Palette, type LucideIcon } from "lucide-react";
-import {
-  formatMonthly,
-  formatPrice,
-  type Currency,
-  type Price,
-} from "@/lib/currency";
+import type { Price } from "@/lib/currency";
 
 /**
  * The service catalogue, in the order clients move through it:
@@ -14,18 +9,19 @@ import {
  * pricing page, the footer links and the booking form's options (and the
  * server-side validation of those options), so the three categories cannot
  * drift apart.
+ *
+ * Pricing is deliberately not per category. Work is scoped and quoted per
+ * client off one entry point — a monthly fee from `pricingModel.fromMonthly`
+ * plus a one-time `pricingModel.setup` — rather than fixed packages.
  */
 
-export interface ServicePackage {
-  name: string;
-  /** One-time fee. */
-  onceOff: Price;
-  /** Recurring monthly fee, or null when nothing recurs. */
-  monthly: Price | null;
-  description: string;
-  features: string[];
-  highlighted?: boolean;
-}
+/** The single pricing model quoted across the site. */
+export const pricingModel = {
+  /** Entry point for ongoing work; final amount depends on scope. */
+  fromMonthly: { zar: 499, usd: 29 } as Price,
+  /** One-time implementation and initial setup. */
+  setup: { zar: 5000, usd: 299 } as Price,
+};
 
 export interface ServiceCategory {
   id: string;
@@ -37,22 +33,12 @@ export interface ServiceCategory {
   tagline: string;
   /** Longer copy for the pricing page. */
   description: string;
-  /** Cheapest once-off price, or null when the category is quote-based. */
-  from: Price | null;
-  /** Shown in place of a figure when quote-based, e.g. "Quote based". */
-  quoteLabel?: string;
-  /** "once-off" or "per project". */
-  priceNote: string;
-  /** Cheapest recurring price, or null when nothing recurs. */
-  fromMonthly: Price | null;
-  /** Shown in place of a monthly figure when support is quoted. */
-  recurringLabel?: string;
-  /** Qualifier after the recurring cost, e.g. "where support is needed". */
-  recurringNote?: string;
   icon: LucideIcon;
   includes: string[];
-  packages?: ServicePackage[];
+  /** Call to action on the home page selector. */
   cta: { label: string; href: string };
+  /** Call to action on the pricing page, where every route leads to a quote. */
+  quoteCta: { label: string; href: string };
 }
 
 export const serviceCategories: ServiceCategory[] = [
@@ -64,19 +50,18 @@ export const serviceCategories: ServiceCategory[] = [
     tagline:
       "Branding and business foundations that make you look established from day one.",
     description:
-      "Establish and strengthen your brand and business foundation — the identity, guidelines and paperwork a credible business runs on.",
-    from: { zar: 5000, usd: 299 },
-    priceNote: "once-off",
-    fromMonthly: null,
+      "Help establishing a strong foundation — the identity, strategy and paperwork a credible business runs on.",
     icon: Palette,
     includes: [
-      "Branding and visual identity",
-      "Logo design",
-      "Business setup and digital foundations",
-      "Brand guidelines",
-      "Business documentation and related setup services",
+      "Business setup support",
+      "Branding",
+      "Logo and visual identity",
+      "Business documentation",
+      "Digital strategy",
+      "Online business setup",
     ],
     cta: { label: "Book a Session", href: "/book" },
+    quoteCta: { label: "Build My Business", href: "/contact" },
   },
   {
     id: "digital-presence",
@@ -86,55 +71,22 @@ export const serviceCategories: ServiceCategory[] = [
     tagline:
       "Your website, domain, email and hosting — built, secured and maintained.",
     description:
-      "Everything needed to build and maintain your presence online, as a once-off build plus a monthly fee that keeps it fast, secure and up to date.",
-    from: { zar: 5000, usd: 299 },
-    priceNote: "once-off",
-    fromMonthly: { zar: 500, usd: 29 },
+      "Build and maintain the systems customers use to find and interact with your business.",
     icon: Globe,
     includes: [
-      "Website design and development",
-      "Domain registration",
-      "Professional email",
-      "Web hosting",
-      "SSL and security",
-      "Website maintenance and updates",
-      "Optional ongoing support",
-    ],
-    packages: [
-      {
-        name: "Starter",
-        onceOff: { zar: 5000, usd: 299 },
-        monthly: { zar: 500, usd: 29 },
-        description:
-          "A professional online presence for small businesses that need to get found.",
-        features: [
-          "Up to 5 pages",
-          "Mobile-responsive design",
-          "Contact form",
-          "Basic on-page SEO",
-          "Professional email setup",
-          "Domain registered for your first 12 months",
-        ],
-      },
-      {
-        name: "Professional",
-        onceOff: { zar: 10000, usd: 599 },
-        monthly: { zar: 750, usd: 45 },
-        description:
-          "A custom-designed site with the integrations a growing business needs.",
-        features: [
-          "Up to 10–12 pages",
-          "Custom design",
-          "Advanced on-page SEO",
-          "Analytics setup",
-          "Integrations: booking, payments, CRM",
-          "Professional email setup",
-          "Domain registered for your first 12 months",
-        ],
-        highlighted: true,
-      },
+      "Business websites",
+      "Landing pages",
+      "Domain setup",
+      "Business email",
+      "Website hosting",
+      "Website maintenance",
+      "Google Business Profile",
+      "WhatsApp integration",
+      "Basic SEO",
+      "Analytics and tracking",
     ],
     cta: { label: "Get Started", href: "/contact" },
+    quoteCta: { label: "Build My Digital Presence", href: "/contact" },
   },
   {
     id: "custom-solutions",
@@ -142,27 +94,23 @@ export const serviceCategories: ServiceCategory[] = [
     node: "Custom",
     name: "Custom Solutions",
     tagline:
-      "For businesses that need more than standard branding or a website.",
+      "For businesses that need something beyond a standard website.",
     description:
-      "Bespoke technology scoped around your business. Priced per project on scope, complexity, integrations, development time and ongoing requirements.",
-    from: null,
-    quoteLabel: "Quote based",
-    priceNote: "per project",
-    fromMonthly: null,
-    recurringLabel: "Quoted",
-    recurringNote: "where support is needed",
+      "Bespoke technology scoped around your business, priced on scope, complexity, integrations and ongoing requirements.",
     icon: Cpu,
     includes: [
       "Web applications",
-      "Custom software",
-      "CRM and automation",
-      "Business management systems",
+      "Business software",
+      "CRM systems",
+      "Workflow automation",
       "API integrations",
+      "AI solutions",
       "Custom dashboards",
-      "Internal tools",
-      "Other specialised business technology",
+      "Internal business tools",
+      "Custom integrations",
     ],
     cta: { label: "Book a Session for a Quote", href: "/book" },
+    quoteCta: { label: "Discuss My Project", href: "/contact" },
   },
 ];
 
@@ -181,35 +129,3 @@ export const serviceLinks = serviceCategories.map((category) => ({
   href: `/pricing#${category.id}`,
   label: category.name,
 }));
-
-/** Headline price for a category, e.g. "From $299" or "Quote based". */
-export function categoryPrice(
-  category: ServiceCategory,
-  currency: Currency
-): string {
-  return category.from
-    ? `From ${formatPrice(category.from, currency)}`
-    : (category.quoteLabel ?? "Quoted");
-}
-
-/** Recurring cost for a category, or null where nothing recurs. */
-export function categoryRecurring(
-  category: ServiceCategory,
-  currency: Currency
-): string | null {
-  if (category.fromMonthly)
-    return `From ${formatMonthly(category.fromMonthly, currency)}`;
-  return category.recurringLabel ?? null;
-}
-
-/** Compact one-line summary for the home page selector. */
-export function categorySummary(
-  category: ServiceCategory,
-  currency: Currency
-): string {
-  if (!category.from) return `Quoted ${category.priceNote}`;
-  const once = formatPrice(category.from, currency);
-  if (category.fromMonthly)
-    return `From ${once} + from ${formatMonthly(category.fromMonthly, currency)}`;
-  return `From ${once} ${category.priceNote}`;
-}
