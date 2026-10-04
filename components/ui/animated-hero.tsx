@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import { CalendarCheck, MoveRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { HeroMockup } from "@/components/sections/hero-mockup";
 
 export const Hero = () => {
   const [titleNumber, setTitleNumber] = useState(0);
@@ -29,9 +30,10 @@ export const Hero = () => {
   return (
     <div className="w-full">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex flex-col items-start gap-8 py-20 lg:py-28">
+        <div className="grid items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:py-24">
+          <div className="flex flex-col items-start gap-8">
           <div className="flex gap-4 flex-col">
-            <h1 className="display-xl max-w-4xl">
+            <h1 className="display-xl max-w-2xl lg:text-5xl">
               <span>Buk Digital builds custom</span>
               {/* The rotating word is masked by overflow-hidden, so this line needs a
               line box taller than the glyphs — the display scale's 1.05 leading
@@ -80,7 +82,10 @@ export const Hero = () => {
                 View Pricing <MoveRight className="w-4 h-4" />
               </Link>
             </Button>
+            </div>
           </div>
+
+          <HeroMockup className="hidden md:block lg:ml-6" />
         </div>
       </div>
     </div>
