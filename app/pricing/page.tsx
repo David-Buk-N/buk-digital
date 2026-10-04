@@ -69,46 +69,35 @@ export default async function PricingPage() {
   const faqs = buildFaqs(currency);
 
   return (
-    <div className="pt-24">
-      {/* Hero */}
-      <section className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-          Digital solutions built around your business
-        </h1>
-        <p className="mt-6 text-lg text-muted-foreground">
-          Websites, digital presence, branding, automation and custom
-          technology — built to help your business operate and grow online.
-        </p>
-        <div className="mt-8">
-          <Button size="lg" asChild>
-            <Link href="/contact">
-              Get a Quote Today
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </Link>
-          </Button>
+    <div className="pt-20">
+      {/* Hero. The headline carries the page, per the reference design system:
+          display weight, tight tracking, one tinted word, left-aligned. */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="max-w-3xl">
+          <h1 className="text-5xl font-semibold leading-[1.04] tracking-[-0.015em] sm:text-6xl">
+            Digital solutions built around your{" "}
+            <span className="text-primary">business</span>
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+            Websites, digital presence, branding, automation and custom
+            technology — built to help your business operate and grow online.
+            Three ways to work with us: take one, or all three.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Button size="lg" className="rounded-full" asChild>
+              <Link href="/contact">
+                Get a Quote Today
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
+            </Button>
+            <p className="text-sm text-muted-foreground">
+              Tailored to your business, from {monthly}/month.
+            </p>
+          </div>
         </div>
-        <p className="mt-6 text-sm text-muted-foreground">
-          Plans can be tailored to your business needs, with solutions starting
-          from {monthly}/month.
-        </p>
       </section>
 
-      {/* What we do */}
-      <section className="mx-auto mt-24 max-w-2xl px-4 text-center sm:px-6">
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-primary">
-          What we do
-        </p>
-        <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">
-          Three ways we work with businesses
-        </h2>
-        <p className="mt-4 text-muted-foreground">
-          From getting your brand and foundations in order, to the website
-          customers find you through, to custom software when off-the-shelf
-          won&apos;t do. Take one, or all three.
-        </p>
-      </section>
-
-      <div className="mt-20">
+      <div className="mt-16">
         <ServiceBlocks />
       </div>
 
@@ -116,22 +105,24 @@ export default async function PricingPage() {
 
       <WhyBukDigital />
 
-      <section className="mx-auto max-w-3xl px-4 pt-20 sm:px-6">
-        <h2 className="text-center text-2xl font-semibold tracking-tight sm:text-3xl">
-          Common questions
-        </h2>
-        <Accordion type="single" collapsible className="mt-8">
-          {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`faq-${index}`}>
-              <AccordionTrigger className="text-left">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+      <section className="mx-auto max-w-7xl px-4 pt-14 sm:px-6">
+        <div className="grid gap-8 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
+          <h2 className="text-2xl font-semibold tracking-[-0.009em] sm:text-3xl">
+            Common questions
+          </h2>
+          <Accordion type="single" collapsible className="lg:mt-0">
+            {faqs.map((faq, index) => (
+              <AccordionItem key={index} value={`faq-${index}`}>
+                <AccordionTrigger className="text-left">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
       </section>
 
       <QuoteCta />
