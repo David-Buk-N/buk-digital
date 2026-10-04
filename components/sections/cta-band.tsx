@@ -12,11 +12,12 @@ export function CtaBand() {
         <FloatingPaths position={1} />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-3xl px-4 text-center sm:px-6">
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-5xl">
-          Ready to build something that grows your business?
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
+        <h2 className="display-lg max-w-2xl">
+          Ready to build something that{" "}
+          <span className="text-primary">grows</span> your business?
         </h2>
-        <p className="mt-4 text-lg text-muted-foreground">
+        <p className="mt-4 max-w-xl text-lg text-muted-foreground">
           Book a free session and let&apos;s scope the right solution — no
           jargon, no obligation.
         </p>

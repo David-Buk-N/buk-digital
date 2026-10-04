@@ -20,17 +20,15 @@ export function LegalPage({
 }) {
   return (
     <div className="pt-24 pb-24">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-          {title}
-        </h1>
-        <p className="mt-4 text-lg text-muted-foreground">{summary}</p>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <h1 className="display-lg">{title}</h1>
+        <p className="mt-4 max-w-3xl text-lg text-muted-foreground">{summary}</p>
         <p className="mt-2 text-sm text-muted-foreground">
           Last updated: {LEGAL_LAST_UPDATED}
         </p>
 
         {hasUnsetDetails && (
-          <div className="mt-8 flex gap-3 rounded-lg border border-destructive/40 bg-destructive/10 p-4">
+          <div className="mt-8 flex max-w-3xl gap-3 rounded-2xl border border-destructive/40 bg-destructive/10 p-4">
             <AlertTriangle
               className="h-5 w-5 shrink-0 text-destructive"
               aria-hidden="true"
@@ -44,7 +42,7 @@ export function LegalPage({
           </div>
         )}
 
-        <article className="legal-prose mt-10">{children}</article>
+        <article className="legal-prose mt-10 max-w-3xl">{children}</article>
       </div>
     </div>
   );

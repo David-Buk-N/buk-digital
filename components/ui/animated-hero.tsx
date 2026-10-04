@@ -28,12 +28,15 @@ export const Hero = () => {
 
   return (
     <div className="w-full">
-      <div className="container mx-auto px-4">
-        <div className="flex gap-8 py-24 lg:py-40 items-center justify-center flex-col">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="flex flex-col items-start gap-8 py-20 lg:py-28">
           <div className="flex gap-4 flex-col">
-            <h1 className="text-4xl sm:text-5xl md:text-7xl max-w-3xl tracking-tighter text-center font-normal">
+            <h1 className="display-xl max-w-4xl">
               <span>Buk Digital builds custom</span>
-              <span className="relative flex w-full justify-center overflow-hidden text-center pb-1 md:pb-4 md:pt-1">
+              {/* The rotating word is masked by overflow-hidden, so this line needs a
+              line box taller than the glyphs — the display scale's 1.05 leading
+              clips their ascenders and descenders. */}
+            <span className="relative flex w-full justify-start overflow-hidden leading-[1.3] pb-1 md:pb-2">
                 &nbsp;
                 {titles.map((title, index) => (
                   <motion.span
@@ -60,7 +63,7 @@ export const Hero = () => {
               <span>for growing businesses.</span>
             </h1>
 
-            <p className="text-lg md:text-xl leading-relaxed tracking-tight text-muted-foreground max-w-2xl text-center mx-auto">
+            <p className="lead-text max-w-2xl">
               From client portals and booking systems to professionally
               designed business websites — we build the technology South
               African SMEs need to grow, without the enterprise price tag.

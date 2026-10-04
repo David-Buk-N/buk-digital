@@ -189,3 +189,31 @@
     @apply border border-border px-3 py-2 align-top;
   }
 }
+
+/* Layout and typography from the reference design system: display-weight
+   headlines with tight leading and negative tracking, flat 28px cards with
+   hairline borders, and hairline-ruled lists. Applied in the site's own dark
+   palette. Defined here so every page shares one scale. */
+@layer components {
+  .display-xl {
+    @apply text-4xl font-semibold leading-[1.05] tracking-[-0.015em] sm:text-5xl md:text-6xl;
+  }
+  .display-lg {
+    @apply text-3xl font-semibold leading-[1.07] tracking-[-0.012em] sm:text-4xl;
+  }
+  .display-md {
+    @apply text-2xl font-semibold leading-[1.14] tracking-[-0.009em] sm:text-3xl;
+  }
+  .lead-text {
+    @apply text-lg leading-relaxed text-muted-foreground sm:text-xl;
+  }
+  .surface-card {
+    @apply rounded-[28px] border border-border bg-card p-7;
+  }
+  .hairline-list {
+    @apply grid border-t border-border;
+  }
+  .hairline-list > li {
+    @apply flex items-center gap-3 border-b border-border py-2.5 text-sm;
+  }
+}

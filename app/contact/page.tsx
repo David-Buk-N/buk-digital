@@ -12,12 +12,10 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="pt-24 pb-24">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <div className="text-center">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-            Get in touch
-          </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div>
+          <h1 className="display-lg">Get in touch</h1>
+          <p className="mt-4 max-w-xl text-lg text-muted-foreground">
             Questions about a project, a package or anything else — we&apos;re
             here to help.
           </p>

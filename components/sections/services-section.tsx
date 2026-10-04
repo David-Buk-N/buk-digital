@@ -179,7 +179,7 @@ export function ServicesSection({ currency }: { currency: Currency }) {
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-primary">
             Services
           </p>
-          <h2 className="mt-4 max-w-[12ch] text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h2 className="display-lg mt-4 max-w-[12ch]">
             What we build.
           </h2>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
@@ -197,12 +197,9 @@ export function ServicesSection({ currency }: { currency: Currency }) {
             </Link>
           </p>
 
-          <ul className="mt-10 grid border-t border-border sm:grid-cols-2 sm:gap-x-8">
+          <ul className="hairline-list mt-10 sm:grid-cols-2 sm:gap-x-8">
             {capabilities.map((capability) => (
-              <li
-                key={capability}
-                className="flex items-center gap-3 border-b border-border py-4 text-sm font-medium"
-              >
+              <li key={capability}>
                 <Check
                   className="size-5 shrink-0 rounded-full bg-primary/15 p-1 text-primary"
                   aria-hidden="true"

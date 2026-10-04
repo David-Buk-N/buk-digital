@@ -16,11 +16,9 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="flex min-h-[70vh] flex-col items-center justify-center px-4 pt-24 text-center">
+    <div className="mx-auto flex min-h-[60vh] max-w-7xl flex-col justify-center px-4 pt-24 sm:px-6">
       <p className="text-sm font-medium text-primary">500</p>
-      <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">
-        Something went wrong
-      </h1>
+      <h1 className="display-lg mt-2">Something went wrong</h1>
       <p className="mt-4 max-w-md text-muted-foreground">
         An unexpected error occurred. Please try again — or reach us on
         WhatsApp if it keeps happening.

@@ -74,11 +74,11 @@ export default async function PricingPage() {
           display weight, tight tracking, one tinted word, left-aligned. */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="max-w-3xl">
-          <h1 className="text-5xl font-semibold leading-[1.04] tracking-[-0.015em] sm:text-6xl">
+          <h1 className="display-xl md:text-6xl">
             Digital solutions built around your{" "}
             <span className="text-primary">business</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+          <p className="lead-text mt-6 max-w-2xl">
             Websites, digital presence, branding, automation and custom
             technology — built to help your business operate and grow online.
             Three ways to work with us: take one, or all three.
@@ -107,9 +107,7 @@ export default async function PricingPage() {
 
       <section className="mx-auto max-w-7xl px-4 pt-14 sm:px-6">
         <div className="grid gap-8 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
-          <h2 className="text-2xl font-semibold tracking-[-0.009em] sm:text-3xl">
-            Common questions
-          </h2>
+          <h2 className="display-md">Common questions</h2>
           <Accordion type="single" collapsible className="lg:mt-0">
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`faq-${index}`}>

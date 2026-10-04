@@ -18,7 +18,7 @@ import { USD_REFERENCE, formatPrice, type Currency } from "@/lib/currency";
  */
 
 /** Shared radius/padding for the page's cards, per the reference. */
-const CARD = "rounded-[28px] border border-border bg-card p-7";
+const CARD = "surface-card";
 
 /** The three service blocks, each ending in a route to a quote. */
 export function ServiceBlocks() {
@@ -36,7 +36,7 @@ export function ServiceBlocks() {
                   {category.number} — {category.name}
                 </p>
               </div>
-              <h2 className="mt-4 text-2xl font-semibold leading-[1.14] tracking-[-0.009em] sm:text-3xl">
+              <h2 className="display-md mt-4">
                 {category.tagline}
               </h2>
               <p className="mt-3 text-muted-foreground">
@@ -50,12 +50,9 @@ export function ServiceBlocks() {
               </Button>
             </div>
 
-            <ul className="grid self-start border-t border-border sm:grid-cols-2 sm:gap-x-8">
+            <ul className="hairline-list self-start sm:grid-cols-2 sm:gap-x-8">
               {category.includes.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-3 border-b border-border py-2.5 text-sm"
-                >
+                <li key={item}>
                   <Check
                     className="size-4 shrink-0 text-primary"
                     aria-hidden="true"
@@ -83,7 +80,7 @@ export function PricingSection({ currency }: { currency: Currency }) {
     <section id="pricing" className="scroll-mt-24 py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="max-w-2xl">
-          <h2 className="text-3xl font-semibold leading-[1.07] tracking-[-0.009em] sm:text-4xl">
+          <h2 className="display-lg">
             Simple pricing. Built around your{" "}
             <span className="text-primary">needs</span>.
           </h2>
@@ -96,7 +93,7 @@ export function PricingSection({ currency }: { currency: Currency }) {
         <div className={`${CARD} mt-8 sm:p-10`}>
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-5xl font-semibold leading-[1.04] tracking-[-0.015em] sm:text-6xl">
+              <p className="display-xl md:text-6xl">
                 From {monthly}
                 <span className="text-2xl text-muted-foreground sm:text-3xl">
                   /month
@@ -180,9 +177,7 @@ export function WhyBukDigital() {
   return (
     <section className="border-y border-border/60 py-14 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <h2 className="text-2xl font-semibold tracking-[-0.009em] sm:text-3xl">
-          Why Buk Digital
-        </h2>
+        <h2 className="display-md">Why Buk Digital</h2>
         <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {reasons.map((reason) => (
             <div key={reason.title}>
@@ -205,7 +200,7 @@ export function QuoteCta() {
         <div className={`${CARD} sm:p-10`}>
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-xl">
-              <h2 className="text-3xl font-semibold leading-[1.07] tracking-[-0.009em] sm:text-4xl">
+              <h2 className="display-lg">
                 Let&apos;s build something that{" "}
                 <span className="text-primary">works</span>.
               </h2>
