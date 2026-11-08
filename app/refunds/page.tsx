@@ -3,10 +3,6 @@ import Link from "next/link";
 import { LegalPage } from "@/components/legal/legal-page";
 import { legalContact, payments } from "@/lib/legal";
 
-// DRAFT — prepared as a starting point, not as legal advice. Refund terms
-// interact with the Consumer Protection Act; have this reviewed before relying
-// on it, and note the CPA amendment published in April 2026.
-
 export const metadata: Metadata = {
   title: "Refund & Cancellation Policy",
   description:

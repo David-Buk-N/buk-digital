@@ -6,9 +6,11 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-plex-mono);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -46,21 +48,7 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  --animate-aurora: aurora 60s linear infinite;
   --animate-marquee: marquee var(--duration, 40s) linear infinite;
-}
-
-@keyframes aurora {
-  from {
-    background-position:
-      50% 50%,
-      50% 50%;
-  }
-  to {
-    background-position:
-      350% 50%,
-      350% 50%;
-  }
 }
 
 @keyframes marquee {
@@ -72,31 +60,37 @@
   }
 }
 
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+/* Surfaces. The site is one light theme with three solid blocks painted over
+   it. Each block redefines the tokens rather than the components, so a Button
+   or a hairline dropped inside one picks up the right colours by itself. */
+:root,
+.paper {
+  --background: oklch(0.965 0.007 106);
+  --foreground: oklch(0.2 0.035 268);
+  --card: oklch(0.995 0.002 106);
+  --card-foreground: oklch(0.2 0.035 268);
+  --popover: oklch(0.995 0.002 106);
+  --popover-foreground: oklch(0.2 0.035 268);
+  --primary: oklch(0.45 0.25 268);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.915 0.01 106);
+  --secondary-foreground: oklch(0.2 0.035 268);
+  --muted: oklch(0.925 0.009 106);
+  --muted-foreground: oklch(0.43 0.025 268);
+  --accent: oklch(0.915 0.01 106);
+  --accent-foreground: oklch(0.2 0.035 268);
+  --destructive: oklch(0.52 0.2 27);
+  --border: oklch(0.2 0.035 268 / 16%);
+  --input: oklch(0.2 0.035 268 / 32%);
+  --ring: oklch(0.45 0.25 268);
+  --highlight: oklch(0.86 0.165 88);
+  --highlight-foreground: oklch(0.2 0.035 268);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: 0.25rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -107,113 +101,266 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* Ink block: footer, the custom plan and the process and "why" bands. */
 .dark {
-  --background: oklch(0.145 0.015 255);
-  --foreground: oklch(0.97 0.005 250);
-  --card: oklch(0.19 0.018 255);
-  --card-foreground: oklch(0.97 0.005 250);
-  --popover: oklch(0.19 0.018 255);
-  --popover-foreground: oklch(0.97 0.005 250);
-  --primary: oklch(0.72 0.155 235);
-  --primary-foreground: oklch(0.16 0.04 245);
-  --secondary: oklch(0.26 0.02 255);
-  --secondary-foreground: oklch(0.97 0.005 250);
-  --muted: oklch(0.26 0.02 255);
-  --muted-foreground: oklch(0.72 0.015 250);
-  --accent: oklch(0.26 0.02 255);
-  --accent-foreground: oklch(0.97 0.005 250);
+  --background: oklch(0.2 0.035 268);
+  --foreground: oklch(0.965 0.007 106);
+  --card: oklch(0.25 0.04 268);
+  --card-foreground: oklch(0.965 0.007 106);
+  --popover: oklch(0.25 0.04 268);
+  --popover-foreground: oklch(0.965 0.007 106);
+  --primary: oklch(0.965 0.007 106);
+  --primary-foreground: oklch(0.2 0.035 268);
+  --secondary: oklch(0.3 0.04 268);
+  --secondary-foreground: oklch(0.965 0.007 106);
+  --muted: oklch(0.3 0.04 268);
+  --muted-foreground: oklch(0.8 0.018 268);
+  --accent: oklch(0.3 0.04 268);
+  --accent-foreground: oklch(0.965 0.007 106);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.72 0.155 235);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: oklch(1 0 0 / 18%);
+  --input: oklch(1 0 0 / 22%);
+  --ring: oklch(0.86 0.165 88);
+}
+
+/* Cobalt block: the home hero and the Pro plan. */
+.cobalt {
+  --background: oklch(0.45 0.25 268);
+  --foreground: oklch(0.99 0 0);
+  --card: oklch(0.5 0.24 268);
+  --card-foreground: oklch(0.99 0 0);
+  --primary: oklch(0.99 0 0);
+  --primary-foreground: oklch(0.38 0.22 268);
+  --secondary: oklch(0.52 0.23 268);
+  --secondary-foreground: oklch(0.99 0 0);
+  --muted: oklch(0.52 0.23 268);
+  --muted-foreground: oklch(0.93 0.03 268);
+  --accent: oklch(0.52 0.23 268);
+  --accent-foreground: oklch(0.99 0 0);
+  --border: oklch(1 0 0 / 26%);
+  --input: oklch(1 0 0 / 40%);
+  --ring: oklch(0.86 0.165 88);
+}
+
+/* Marigold block: the closing call to action. */
+.marigold {
+  --background: oklch(0.86 0.165 88);
+  --foreground: oklch(0.2 0.035 268);
+  --muted-foreground: oklch(0.3 0.04 268);
+  --primary: oklch(0.2 0.035 268);
+  --primary-foreground: oklch(0.965 0.007 106);
+  --border: oklch(0.2 0.035 268 / 26%);
+  --input: oklch(0.2 0.035 268 / 45%);
+  --ring: oklch(0.2 0.035 268);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    @apply font-sans;
+    scroll-padding-top: 5.5rem;
+  }
   body {
     @apply bg-background text-foreground;
   }
-  html {
-    @apply font-sans;
+  .paper,
+  .dark,
+  .cobalt,
+  .marigold {
+    background-color: var(--background);
+    color: var(--foreground);
   }
-}
-/* Long-form policy text (Terms, Privacy, Refunds, PAIA). The project has no
-   typography plugin, so the legal pages get their own element styles here. */
-@layer components {
-  .legal-prose {
-    @apply text-muted-foreground leading-relaxed;
+  ::selection {
+    background-color: var(--highlight);
+    color: var(--highlight-foreground);
   }
-  .legal-prose h2 {
-    @apply mt-10 mb-3 text-xl font-semibold text-foreground scroll-mt-24;
-  }
-  .legal-prose h3 {
-    @apply mt-6 mb-2 text-base font-semibold text-foreground;
-  }
-  .legal-prose p {
-    @apply my-3;
-  }
-  .legal-prose ul {
-    @apply my-3 list-disc space-y-1 pl-6;
-  }
-  .legal-prose ol {
-    @apply my-3 list-decimal space-y-1 pl-6;
-  }
-  .legal-prose a {
-    @apply text-foreground underline underline-offset-4 hover:text-primary;
-  }
-  .legal-prose strong {
-    @apply font-semibold text-foreground;
-  }
-  .legal-prose table {
-    @apply my-4 w-full border-collapse text-sm;
-  }
-  .legal-prose th {
-    @apply border border-border bg-card px-3 py-2 text-left font-semibold text-foreground;
-  }
-  .legal-prose td {
-    @apply border border-border px-3 py-2 align-top;
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 }
 
-/* Layout and typography from the reference design system: display-weight
-   headlines with tight leading and negative tracking, flat 28px cards with
-   hairline borders, and hairline-ruled lists. Applied in the site's own dark
-   palette. Defined here so every page shares one scale. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* The type scale and layout primitives every page shares. */
 @layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[84rem] px-5 sm:px-8;
+  }
   .display-xl {
-    @apply text-4xl font-semibold leading-[1.05] tracking-[-0.015em] sm:text-5xl md:text-6xl;
+    font-size: clamp(2.75rem, 1.6rem + 4.6vw, 5.25rem);
+    @apply font-extrabold leading-[1] tracking-[-0.035em] text-balance;
   }
   .display-lg {
-    @apply text-3xl font-semibold leading-[1.07] tracking-[-0.012em] sm:text-4xl;
+    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.75rem);
+    @apply font-extrabold leading-[1.03] tracking-[-0.03em] text-balance;
   }
   .display-md {
-    @apply text-2xl font-semibold leading-[1.14] tracking-[-0.009em] sm:text-3xl;
+    font-size: clamp(1.625rem, 1.35rem + 1.1vw, 2.25rem);
+    @apply font-bold leading-[1.12] tracking-[-0.02em] text-balance;
   }
   .lead-text {
     @apply text-lg leading-relaxed text-muted-foreground sm:text-xl;
   }
+  .eyebrow {
+    @apply font-mono text-xs font-medium uppercase tracking-[0.14em];
+  }
   .surface-card {
-    @apply rounded-[28px] border border-border bg-card p-7;
+    @apply rounded-[var(--radius)] border border-border bg-card p-6 text-card-foreground sm:p-10;
   }
   .hairline-list {
     @apply grid border-t border-border;
   }
   .hairline-list > li {
-    @apply flex items-center gap-3 border-b border-border py-2.5 text-sm;
+    @apply flex items-center gap-3 border-b border-border py-3 text-[0.9375rem];
+  }
+  /* A priced line on a plan: label, dotted leader, value. */
+  .ledger-row {
+    @apply flex items-baseline gap-2 py-2.5 text-[0.9375rem];
+  }
+  .ledger-row > dt {
+    @apply font-medium;
+  }
+  .ledger-row > .ledger-leader {
+    @apply min-w-4 flex-1 translate-y-[-0.2em] border-b border-dotted border-current opacity-35;
+  }
+  .ledger-row > dd {
+    @apply shrink-0 font-mono text-sm font-medium;
+  }
+  .ledger-free {
+    @apply rounded-[2px] bg-highlight px-1.5 py-0.5 text-highlight-foreground;
+  }
+}
+
+/* The word that changes in the home headline. CSS rather than a timer, so the
+   server-rendered headline is complete before any script runs. */
+@layer components {
+  .word-cycle {
+    display: inline-grid;
+  }
+  .word-cycle > span {
+    grid-area: 1 / 1;
+    white-space: nowrap;
+    opacity: 0;
+    animation: word-cycle 10s infinite;
+  }
+  .word-cycle > span:nth-child(2) {
+    animation-delay: 2.5s;
+  }
+  .word-cycle > span:nth-child(3) {
+    animation-delay: 5s;
+  }
+  .word-cycle > span:nth-child(4) {
+    animation-delay: 7.5s;
+  }
+  .rise {
+    animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .spin-slow {
+    transform-box: view-box;
+    transform-origin: center;
+    animation: spin-slow 90s linear infinite;
+  }
+}
+
+@keyframes word-cycle {
+  0% {
+    opacity: 0;
+    transform: translateY(0.22em);
+  }
+  3%,
+  22% {
+    opacity: 1;
+    transform: none;
+  }
+  25%,
+  100% {
+    opacity: 0;
+    transform: translateY(-0.22em);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-cycle > span {
+    animation: none;
+  }
+  .word-cycle > span:first-child {
+    opacity: 1;
+  }
+  .rise,
+  .spin-slow {
+    animation: none;
+  }
+}
+
+/* Long-form policy text (Terms, Privacy, Refunds, PAIA). The project has no
+   typography plugin, so the legal pages get their own element styles here. */
+@layer components {
+  .legal-prose {
+    @apply text-[1.0625rem] leading-[1.7];
+    color: color-mix(in oklch, var(--foreground) 84%, transparent);
+  }
+  .legal-prose > :first-child {
+    @apply mt-0 border-t-0 pt-0;
+  }
+  .legal-prose h2 {
+    @apply mt-12 grid grid-cols-[2.5rem_minmax(0,1fr)] items-baseline border-t border-border pt-7 text-2xl font-bold leading-tight tracking-[-0.015em] text-foreground;
+    margin-bottom: 0.875rem;
+  }
+  .legal-num {
+    @apply font-mono text-sm font-medium tracking-normal text-primary;
+  }
+  .legal-prose h3 {
+    @apply mt-7 mb-2 text-lg font-semibold text-foreground;
+  }
+  .legal-prose p {
+    @apply my-3.5;
+  }
+  .legal-prose ul {
+    @apply my-3.5 list-disc space-y-1.5 pl-5 marker:text-primary;
+  }
+  .legal-prose ol {
+    @apply my-3.5 list-decimal space-y-1.5 pl-6 marker:font-mono marker:text-sm marker:text-primary;
+  }
+  .legal-prose li {
+    @apply pl-1;
+  }
+  .legal-prose a {
+    @apply font-medium text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary;
+    overflow-wrap: anywhere;
+  }
+  .legal-prose strong {
+    @apply font-semibold text-foreground;
+  }
+  .legal-prose table {
+    @apply my-6 w-full border-collapse border-y-2 border-foreground text-[0.9375rem] leading-snug;
+  }
+  .legal-prose th {
+    @apply border-b border-foreground px-3 py-2.5 text-left font-mono text-xs font-medium uppercase tracking-[0.08em] text-foreground first:pl-0 last:pr-0;
+  }
+  .legal-prose td {
+    @apply border-b border-border px-3 py-3 align-top first:pl-0 last:pr-0;
+  }
+  .legal-prose tr:last-child td {
+    @apply border-b-0;
   }
 }

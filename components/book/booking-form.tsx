@@ -127,7 +127,7 @@ export function BookingForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-xl border border-border bg-card p-10 text-center">
+      <div className="py-10 text-center">
         <CheckCircle2
           className="mx-auto h-12 w-12 text-primary"
           aria-hidden="true"
@@ -232,7 +232,7 @@ export function BookingForm() {
                 type="button"
                 variant="outline"
                 className={cn(
-                  "justify-start text-left font-normal",
+                  "h-11 justify-start border-input bg-transparent px-3 text-left font-normal",
                   !date && "text-muted-foreground"
                 )}
                 aria-invalid={Boolean(errors.dateTime)}

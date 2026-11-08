@@ -4,15 +4,9 @@ import { LegalPage } from "@/components/legal/legal-page";
 import { EntityDetails } from "@/components/legal/entity-details";
 import { legalContact, legalEntity, resolved } from "@/lib/legal";
 
-// DRAFT — prepared as a starting point, not as legal advice. A PAIA manual has
-// prescribed content under section 51 of the Promotion of Access to Information
-// Act, and the Information Regulator publishes a template. Have this checked
-// against the current requirements for this entity before publishing.
-//
-// TODO before publishing: confirm the current prescribed request form and the
-// prescribed fees at https://inforegulator.org.za/paia/ — form numbers and
-// amounts have changed with successive regulations, so they are referenced
-// here rather than reproduced.
+// Form numbers and prescribed fees have changed with successive regulations, so
+// they are referenced at https://inforegulator.org.za/paia/ rather than
+// reproduced here.
 
 export const metadata: Metadata = {
   title: "PAIA Manual",

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Clock, Mail, MessageCircle, Phone } from "lucide-react";
 import { ContactForm } from "@/components/contact/contact-form";
 import { siteConfig } from "@/lib/site";
 
@@ -9,81 +8,61 @@ export const metadata: Metadata = {
     "Get in touch with Buk Digital — phone, email or WhatsApp. We respond within one business day.",
 };
 
+const linkClass = "text-lg font-medium underline-offset-4 hover:text-primary hover:underline";
+
 export default function ContactPage() {
   return (
-    <div className="pt-24 pb-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div>
-          <h1 className="display-lg">Get in touch</h1>
-          <p className="mt-4 max-w-xl text-lg text-muted-foreground">
-            Questions about a project, a package or anything else — we&apos;re
-            here to help.
-          </p>
-        </div>
+    <div className="wrap grid gap-10 pt-14 pb-20 sm:pt-20 sm:pb-28 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)] lg:gap-20">
+      <div>
+        <h1 className="display-xl">Get in touch</h1>
+        <p className="lead-text mt-6 max-w-lg">
+          Questions about a project, a package or anything else — we&apos;re
+          here to help.
+        </p>
 
-        <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-5">
-          <div className="lg:col-span-3">
-            <ContactForm />
+        <dl className="mt-10 border-t-2 border-foreground">
+          <div className="border-b border-border py-4">
+            <dt className="eyebrow text-muted-foreground">Phone</dt>
+            <dd className="mt-1.5">
+              <a href={siteConfig.phoneHref} className={linkClass}>
+                {siteConfig.phone}
+              </a>
+            </dd>
           </div>
-
-          <div className="space-y-8 lg:col-span-2">
-            <div className="flex gap-4">
-              <Phone className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-              <div>
-                <h2 className="font-semibold">Phone</h2>
-                <a
-                  href={siteConfig.phoneHref}
-                  className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {siteConfig.phone}
-                </a>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <Mail className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-              <div>
-                <h2 className="font-semibold">Email</h2>
-                <a
-                  href={siteConfig.emailHref}
-                  className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {siteConfig.email}
-                </a>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <MessageCircle
-                className="h-5 w-5 shrink-0 text-primary"
-                aria-hidden="true"
-              />
-              <div>
-                <h2 className="font-semibold">WhatsApp</h2>
-                <a
-                  href={siteConfig.whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  Chat with us on WhatsApp
-                </a>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <Clock className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-              <div>
-                <h2 className="font-semibold">Hours</h2>
-                <p className="text-muted-foreground">
-                  Mon–Fri: 9:00–18:00
-                  <br />
-                  Sat: 10:00–16:00
-                </p>
-              </div>
-            </div>
+          <div className="border-b border-border py-4">
+            <dt className="eyebrow text-muted-foreground">Email</dt>
+            <dd className="mt-1.5">
+              <a href={siteConfig.emailHref} className={`${linkClass} break-all`}>
+                {siteConfig.email}
+              </a>
+            </dd>
           </div>
-        </div>
+          <div className="border-b border-border py-4">
+            <dt className="eyebrow text-muted-foreground">WhatsApp</dt>
+            <dd className="mt-1.5">
+              <a
+                href={siteConfig.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={linkClass}
+              >
+                Chat with us on WhatsApp
+              </a>
+            </dd>
+          </div>
+          <div className="border-b border-border py-4">
+            <dt className="eyebrow text-muted-foreground">Hours</dt>
+            <dd className="mt-1.5 text-lg font-medium">
+              Mon–Fri: 9:00–18:00
+              <br />
+              Sat: 10:00–16:00
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <div className="surface-card self-start">
+        <ContactForm />
       </div>
     </div>
   );

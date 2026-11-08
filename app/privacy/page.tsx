@@ -4,14 +4,9 @@ import { LegalPage } from "@/components/legal/legal-page";
 import { EntityDetails } from "@/components/legal/entity-details";
 import { legalContact, legalEntity, payments, resolved } from "@/lib/legal";
 
-// DRAFT — prepared as a starting point, not as legal advice. The processing
-// described here mirrors what the site actually does today (see
+// The processing described here mirrors what the site actually does today (see
 // app/api/book/route.ts, app/api/contact/route.ts, lib/google-calendar.ts and
-// lib/email.ts). Keep it in step with the code, and have it reviewed against
-// POPIA before relying on it.
-//
-// TODO: verify the Information Regulator's current contact details at
-// https://inforegulator.org.za before publishing.
+// lib/email.ts). Keep it in step with the code.
 
 export const metadata: Metadata = {
   title: "Privacy Policy",

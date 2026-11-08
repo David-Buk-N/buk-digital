@@ -73,7 +73,7 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-xl border border-border bg-card p-10 text-center">
+      <div className="py-10 text-center">
         <CheckCircle2
           className="mx-auto h-12 w-12 text-primary"
           aria-hidden="true"

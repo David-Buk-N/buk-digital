@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
+import { LogoMark } from "@/components/layout/logo";
 import { siteConfig } from "@/lib/site";
 import { serviceLinks } from "@/lib/services";
 import {
@@ -66,29 +67,13 @@ export function Footer() {
     .join(" · ");
 
   return (
-    <footer className="border-t border-border/60 bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+    <footer className="dark print:hidden">
+      <div className="wrap py-16 sm:py-20">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
           <div>
-            <div className="flex items-center gap-2 font-semibold">
-              <svg
-                viewBox="0 0 24 24"
-                width="24"
-                height="24"
-                className="text-primary"
-                aria-hidden="true"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-                <circle cx="12" cy="12" r="4" fill="currentColor" />
-              </svg>
-              <span>Buk Digital</span>
+            <div className="flex items-center gap-2.5">
+              <LogoMark />
+              <span className="text-xl font-bold tracking-[-0.02em]">Buk Digital</span>
             </div>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
               Branding, business websites and custom software for growing
@@ -113,13 +98,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold">Services</h3>
-            <ul className="mt-3 space-y-2">
+            <h3 className="eyebrow text-muted-foreground">Services</h3>
+            <ul className="mt-4 space-y-2.5">
               {serviceLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-[0.9375rem] underline-offset-4 hover:underline"
                   >
                     {link.label}
                   </Link>
@@ -129,13 +114,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold">Company</h3>
-            <ul className="mt-3 space-y-2">
+            <h3 className="eyebrow text-muted-foreground">Company</h3>
+            <ul className="mt-4 space-y-2.5">
               {companyLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-[0.9375rem] underline-offset-4 hover:underline"
                   >
                     {link.label}
                   </Link>
@@ -145,13 +130,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold">Legal</h3>
-            <ul className="mt-3 space-y-2">
+            <h3 className="eyebrow text-muted-foreground">Legal</h3>
+            <ul className="mt-4 space-y-2.5">
               {legalPages.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-[0.9375rem] underline-offset-4 hover:underline"
                   >
                     {link.label}
                   </Link>
@@ -161,22 +146,23 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold">Contact</h3>
-            <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+            <h3 className="eyebrow text-muted-foreground">Contact</h3>
+            <ul className="mt-4 space-y-2.5 text-[0.9375rem]">
               <li>
                 <a
                   href={siteConfig.phoneHref}
-                  className="flex items-center gap-2 transition-colors hover:text-foreground"
+                  className="flex items-center gap-2 underline-offset-4 hover:underline"
                 >
-                  <Phone className="h-4 w-4" /> {siteConfig.phone}
+                  <Phone className="size-4 shrink-0" aria-hidden="true" /> {siteConfig.phone}
                 </a>
               </li>
               <li>
                 <a
                   href={siteConfig.emailHref}
-                  className="flex items-center gap-2 transition-colors hover:text-foreground"
+                  className="flex items-center gap-2 underline-offset-4 hover:underline"
                 >
-                  <Mail className="h-4 w-4" /> {siteConfig.email}
+                  <Mail className="size-4 shrink-0" aria-hidden="true" />{" "}
+                  <span className="break-all">{siteConfig.email}</span>
                 </a>
               </li>
               <li>Mon–Fri: 9:00–18:00</li>
@@ -185,7 +171,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-border/60 pt-6">
+        <div className="mt-14 border-t border-border pt-6">
           {identityLine && (
             <p className="text-xs text-muted-foreground">{identityLine}</p>
           )}

@@ -4,9 +4,8 @@ import { siteConfig } from "@/lib/site";
  * Business identity used across the legal pages and the footer.
  *
  * Values wrapped in [SQUARE BRACKETS] are not yet known. Anything still
- * bracketed is treated as unset: the footer omits it and the legal pages show
- * a "draft" notice instead of presenting themselves as final. Fill these in
- * and both behaviours switch off on their own.
+ * bracketed is treated as unset: the footer and the legal pages leave it out,
+ * so a placeholder never reaches a visitor. Fill one in and it appears.
  */
 export const legalEntity = {
   tradingName: "Buk Digital",
@@ -65,14 +64,6 @@ export function isUnset(value: string | null | undefined): boolean {
 export function resolved(value: string | null | undefined): string | undefined {
   return isUnset(value) ? undefined : (value as string);
 }
-
-/** True while any identity detail is outstanding, which keeps the draft notice visible. */
-export const hasUnsetDetails: boolean =
-  isUnset(legalEntity.legalName) ||
-  isUnset(legalEntity.registrationNumber) ||
-  isUnset(legalEntity.informationOfficer) ||
-  isUnset(legalEntity.province) ||
-  legalEntity.addressLines.some(isUnset);
 
 /** Address as a single line, or undefined while any part is a placeholder. */
 export function addressOneLine(): string | undefined {

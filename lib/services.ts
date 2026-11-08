@@ -10,18 +10,79 @@ import type { Price } from "@/lib/currency";
  * server-side validation of those options), so the three categories cannot
  * drift apart.
  *
- * Pricing is deliberately not per category. Work is scoped and quoted per
- * client off one entry point — a monthly fee from `pricingModel.fromMonthly`
- * plus a one-time `pricingModel.setup` — rather than fixed packages.
+ * Prices are not per category: what a client buys is one of the `plans` below.
  */
 
-/** The single pricing model quoted across the site. */
-export const pricingModel = {
-  /** Entry point for ongoing work; final amount depends on scope. */
-  fromMonthly: { zar: 499, usd: 29 } as Price,
-  /** One-time implementation and initial setup. */
-  setup: { zar: 5000, usd: 299 } as Price,
-};
+/** One line on a plan: what it is, and how much of it you get. */
+export interface PlanRow {
+  label: string;
+  value: string;
+  /** Marks the value as free, which the ledger highlights. */
+  free?: boolean;
+  /** Points at the domain conditions in the pricing fine print. */
+  footnote?: boolean;
+}
+
+export interface Plan {
+  id: string;
+  name: string;
+  /** Monthly price. Null means the plan is quoted rather than priced. */
+  monthly: Price | null;
+  rows: PlanRow[];
+  cta: { label: string; href: string };
+  /** Which of the site's colour blocks the plan is painted in. */
+  surface: "paper" | "cobalt" | "dark";
+}
+
+/**
+ * The packages, and the only place their contents and prices are defined.
+ * The rand price is what we invoice. The dollar price is a clean price point
+ * near the rand price at USD_REFERENCE in lib/currency.ts.
+ */
+export const plans: Plan[] = [
+  {
+    id: "basic",
+    name: "Basic",
+    monthly: { zar: 500, usd: 29 },
+    rows: [
+      { label: "Maintenance calls", value: "3 a month" },
+      { label: "5-page website", value: "Free", free: true },
+      { label: "Domain", value: "Free", free: true, footnote: true },
+      { label: "Web hosting", value: "Included" },
+      { label: "Email addresses", value: "10" },
+    ],
+    cta: { label: "Get Started", href: "/contact" },
+    surface: "paper",
+  },
+  {
+    id: "pro",
+    name: "Pro",
+    monthly: { zar: 800, usd: 49 },
+    rows: [
+      { label: "Maintenance calls", value: "10 a month" },
+      { label: "5-page websites", value: "2" },
+      { label: "Email addresses", value: "Up to 25" },
+    ],
+    cta: { label: "Get Started", href: "/contact" },
+    surface: "cobalt",
+  },
+  {
+    id: "custom",
+    name: "Custom",
+    monthly: null,
+    rows: [
+      { label: "Custom web app", value: "To your scope" },
+      { label: "Once-off consultation fee", value: "Included" },
+    ],
+    cta: { label: "Book a Session for a Quote", href: "/book" },
+    surface: "dark",
+  },
+];
+
+export const basicPlan = plans[0];
+
+/** The lowest monthly price, quoted wherever the site says "plans from". */
+export const startingMonthly = basicPlan.monthly as Price;
 
 export interface ServiceCategory {
   id: string;

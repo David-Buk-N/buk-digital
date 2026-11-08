@@ -1,30 +1,26 @@
-"use client";
-
 import Link from "next/link";
 import { CalendarCheck } from "lucide-react";
-import { FloatingPaths } from "@/components/kokonutui/background-paths";
 import { Button } from "@/components/ui/button";
 
 export function CtaBand() {
   return (
-    <section className="relative overflow-hidden py-24 sm:py-32">
-      <div className="absolute inset-0" aria-hidden="true">
-        <FloatingPaths position={1} />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
-        <h2 className="display-lg max-w-2xl">
+    <section className="marigold py-20 sm:py-28">
+      <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:items-end lg:gap-24">
+        <h2 className="display-xl">
           Ready to build something that{" "}
-          <span className="text-primary">grows</span> your business?
+          <span className="underline decoration-[0.08em] underline-offset-[0.12em]">
+            grows
+          </span>{" "}
+          your business?
         </h2>
-        <p className="mt-4 max-w-xl text-lg text-muted-foreground">
-          Book a free session and let&apos;s scope the right solution — no
-          jargon, no obligation.
-        </p>
-        <div className="mt-8">
-          <Button size="lg" className="gap-3" asChild>
+        <div>
+          <p className="text-lg leading-relaxed text-muted-foreground">
+            Book a free session and let&apos;s scope the right solution — no
+            jargon, no obligation.
+          </p>
+          <Button size="lg" className="mt-6" asChild>
             <Link href="/book">
-              Book a Session <CalendarCheck className="h-4 w-4" />
+              Book a Session <CalendarCheck className="size-4" aria-hidden="true" />
             </Link>
           </Button>
         </div>

@@ -10,10 +10,6 @@ import {
   resolved,
 } from "@/lib/legal";
 
-// DRAFT — prepared as a starting point, not as legal advice. Have a South
-// African attorney review this against the business's actual contracts, tax
-// position and the Consumer Protection Act before relying on it.
-
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description:

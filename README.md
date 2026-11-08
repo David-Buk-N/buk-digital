@@ -11,8 +11,8 @@ lucide-react**, assembled from 21st.dev-style community components
 
 | Route      | Purpose                                                        |
 | ---------- | -------------------------------------------------------------- |
-| `/`        | Hero (rotating headline + aurora), services bento, process, testimonials, CTA band |
-| `/pricing` | Three ZAR tiers (Starter / Professional / Custom Web App) + FAQ |
+| `/`        | Hero with the Basic plan, services, plans, process, CTA band    |
+| `/pricing` | Basic, Pro and quoted Custom plans (`lib/services.ts`), services, FAQ |
 | `/book`    | Booking form → Google Calendar event + confirmation email       |
 | `/contact` | Contact form, phone/email/WhatsApp details                      |
 

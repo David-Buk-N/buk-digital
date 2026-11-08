@@ -9,19 +9,17 @@ export const metadata: Metadata = {
 
 export default function BookPage() {
   return (
-    <div className="pt-24 pb-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div>
-          <h1 className="display-lg">Book a session</h1>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Tell us about your project and pick a time that suits you. Sessions
-            are free, roughly an hour, and completely obligation-free.
-          </p>
-        </div>
+    <div className="wrap grid gap-10 pt-14 pb-20 sm:pt-20 sm:pb-28 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)] lg:gap-20">
+      <div>
+        <h1 className="display-xl">Book a session</h1>
+        <p className="lead-text mt-6 max-w-lg">
+          Tell us about your project and pick a time that suits you. Sessions
+          are free, roughly an hour, and completely obligation-free.
+        </p>
+      </div>
 
-        <div className="mt-12 max-w-2xl">
-          <BookingForm />
-        </div>
+      <div className="surface-card">
+        <BookingForm />
       </div>
     </div>
   );
