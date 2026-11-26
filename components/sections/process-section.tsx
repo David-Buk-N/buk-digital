@@ -1,27 +1,27 @@
 const steps = [
   {
     step: "Step 1",
-    title: "Discover",
+    title: "Consult",
     content:
-      "We unpack your goals, workflows and pain points in a discovery session, then scope a solution that fits your budget.",
+      "It starts with a free consultation. We get to know your business, your goals and the challenges you want to solve.",
   },
   {
     step: "Step 2",
-    title: "Build",
+    title: "Propose",
     content:
-      "We design and develop in short iterations, sharing progress as we go — no black-box development.",
+      "You receive a clear proposal with the recommended solution, scope, timeline and price — before any work begins.",
   },
   {
     step: "Step 3",
-    title: "Launch",
+    title: "Build & launch",
     content:
-      "We deploy, test on real devices, connect your domain and hand over everything you need to go live with confidence.",
+      "We design and build in short iterations, sharing progress as we go, then test on real devices and go live with confidence.",
   },
   {
     step: "Step 4",
     title: "Support",
     content:
-      "Managed hosting, maintenance and improvements keep your solution fast, secure and up to date long after launch.",
+      "Managed hosting, maintenance and improvements keep everything fast, secure and up to date long after launch.",
   },
 ];
 

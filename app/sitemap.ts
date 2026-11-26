@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: siteConfig.url, changeFrequency: "monthly", priority: 1 },
     {
-      url: `${siteConfig.url}/pricing`,
+      url: `${siteConfig.url}/services`,
       changeFrequency: "monthly",
       priority: 0.9,
     },

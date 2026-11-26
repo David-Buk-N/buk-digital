@@ -1,192 +1,123 @@
-import { Cpu, Globe, Palette, type LucideIcon } from "lucide-react";
 import type { Price } from "@/lib/currency";
 
 /**
- * The service catalogue, in the order clients move through it:
- * Business Development → Digital Presence → Custom Solutions.
+ * The service catalogue: the single source of truth for the home page
+ * services section, the services page and the footer links.
  *
- * This is the single source of truth for the home page services section, the
- * pricing page, the footer links and the booking form's options (and the
- * server-side validation of those options), so the three categories cannot
- * drift apart.
- *
- * Prices are not per category: what a client buys is one of the `plans` below.
+ * Every service is sold through a free consultation, so every call to action
+ * leads to the booking page. Only Web Design & Hosting shows a price, and only
+ * as a starting point: scope and final price are agreed after the
+ * consultation.
  */
-
-/** One line on a plan: what it is, and how much of it you get. */
-export interface PlanRow {
-  label: string;
-  value: string;
-  /** Marks the value as free, which the ledger highlights. */
-  free?: boolean;
-  /** Points at the domain conditions in the pricing fine print. */
-  footnote?: boolean;
-}
-
-export interface Plan {
-  id: string;
-  name: string;
-  /** Monthly price. Null means the plan is quoted rather than priced. */
-  monthly: Price | null;
-  rows: PlanRow[];
-  cta: { label: string; href: string };
-  /** Which of the site's colour blocks the plan is painted in. */
-  surface: "paper" | "cobalt" | "dark";
-}
 
 /**
- * The packages, and the only place their contents and prices are defined.
- * The rand price is what we invoice. The dollar price is a clean price point
- * near the rand price at USD_REFERENCE in lib/currency.ts.
+ * The starting monthly price for Web Design & Hosting. The rand price is what
+ * we invoice; the dollar price is shown to visitors outside South Africa.
  */
-export const plans: Plan[] = [
-  {
-    id: "basic",
-    name: "Basic",
-    monthly: { zar: 500, usd: 29 },
-    rows: [
-      { label: "Maintenance calls", value: "3 a month" },
-      { label: "5-page website", value: "Free", free: true },
-      { label: "Domain", value: "Free", free: true, footnote: true },
-      { label: "Web hosting", value: "Included" },
-      { label: "Email addresses", value: "10" },
-    ],
-    cta: { label: "Get Started", href: "/contact" },
-    surface: "paper",
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    monthly: { zar: 800, usd: 49 },
-    rows: [
-      { label: "Maintenance calls", value: "10 a month" },
-      { label: "5-page websites", value: "2" },
-      { label: "Email addresses", value: "Up to 25" },
-    ],
-    cta: { label: "Get Started", href: "/contact" },
-    surface: "cobalt",
-  },
-  {
-    id: "custom",
-    name: "Custom",
-    monthly: null,
-    rows: [
-      { label: "Custom web app", value: "To your scope" },
-      { label: "Once-off consultation fee", value: "Included" },
-    ],
-    cta: { label: "Book a Session for a Quote", href: "/book" },
-    surface: "dark",
-  },
-];
-
-export const basicPlan = plans[0];
-
-/** The lowest monthly price, quoted wherever the site says "plans from". */
-export const startingMonthly = basicPlan.monthly as Price;
+export const startingMonthly: Price = { zar: 499.99, usd: 29.99 };
 
 export interface ServiceCategory {
   id: string;
   number: string;
-  /** Short label for the radial selector on the home page. */
-  node: string;
   name: string;
-  /** One line, used in the selector's centre readout. */
+  /** One line: under the name on the home page, the heading on /services. */
   tagline: string;
-  /** Longer copy for the pricing page. */
+  /** Longer copy for the services page. */
   description: string;
-  icon: LucideIcon;
   includes: string[];
-  /** Call to action on the home page selector. */
+  /**
+   * How the price is communicated. "from" shows the starting monthly price;
+   * "quoted" shows the line given; null shows no price at all.
+   */
+  pricing: { kind: "from" } | { kind: "quoted"; text: string } | null;
   cta: { label: string; href: string };
-  /** Call to action on the pricing page, where every route leads to a quote. */
-  quoteCta: { label: string; href: string };
 }
 
 export const serviceCategories: ServiceCategory[] = [
   {
-    id: "business-development",
+    id: "company-branding",
     number: "01",
-    node: "Branding",
-    name: "Business Development",
+    name: "Company Branding & Setup",
     tagline:
-      "Branding and business foundations that make you look established from day one.",
+      "A professional, credible brand that looks established from day one.",
     description:
-      "Help establishing a strong foundation — the identity, strategy and paperwork a credible business runs on.",
-    icon: Palette,
+      "For new and existing businesses: we build a consistent brand identity and set up the email, domain and digital basics a credible business runs on.",
     includes: [
-      "Business setup support",
-      "Branding",
-      "Logo and visual identity",
-      "Business documentation",
-      "Digital strategy",
-      "Online business setup",
+      "Brand strategy and consultation",
+      "Logo design",
+      "Corporate identity development",
+      "Brand guidelines",
+      "Colour palettes and typography",
+      "Business profiles and presentations",
+      "Digital business setup",
+      "Professional email setup",
+      "Domain registration and configuration",
+      "Social media branding",
+      "Brand repositioning",
     ],
-    cta: { label: "Book a Session", href: "/book" },
-    quoteCta: { label: "Build My Business", href: "/contact" },
+    pricing: null,
+    cta: { label: "Let's Build Your Brand", href: "/book" },
   },
   {
-    id: "digital-presence",
+    id: "web-design-hosting",
     number: "02",
-    node: "Websites",
-    name: "Digital Presence",
+    name: "Web Design & Hosting",
     tagline:
-      "Your website, domain, email and hosting — built, secured and maintained.",
+      "A professional online presence, without the hassle of running it yourself.",
     description:
-      "Build and maintain the systems customers use to find and interact with your business.",
-    icon: Globe,
+      "We design, build, host and look after your website, so you never have to manage your own digital infrastructure.",
     includes: [
-      "Business websites",
-      "Landing pages",
-      "Domain setup",
-      "Business email",
-      "Website hosting",
+      "Professional website design and development",
+      "Responsive, mobile-friendly websites",
+      "Managed web hosting",
+      "Domain management",
+      "Business email solutions",
       "Website maintenance",
-      "Google Business Profile",
-      "WhatsApp integration",
-      "Basic SEO",
-      "Analytics and tracking",
+      "Security and SSL certificates",
+      "Website performance optimisation",
+      "Search engine optimisation foundations",
+      "Ongoing technical support",
     ],
-    cta: { label: "Get Started", href: "/contact" },
-    quoteCta: { label: "Build My Digital Presence", href: "/contact" },
+    pricing: { kind: "from" },
+    cta: { label: "Let's Build Your Website", href: "/book" },
   },
   {
     id: "custom-solutions",
     number: "03",
-    node: "Custom",
     name: "Custom Solutions",
-    tagline:
-      "For businesses that need something beyond a standard website.",
+    tagline: "Technology built around the way your business works.",
     description:
-      "Bespoke technology scoped around your business, priced on scope, complexity, integrations and ongoing requirements.",
-    icon: Cpu,
+      "Tell us the problem, not the technology. We'll work out what solves it — from automating a single workflow to building a full client portal.",
     includes: [
+      "Custom software development",
       "Web applications",
-      "Business software",
-      "CRM systems",
-      "Workflow automation",
+      "CRM implementation",
+      "Business process automation",
+      "AI-powered business solutions",
+      "Client portals",
+      "Booking and scheduling systems",
+      "Custom dashboards and reporting",
       "API integrations",
-      "AI solutions",
-      "Custom dashboards",
-      "Internal business tools",
-      "Custom integrations",
+      "Internal business management systems",
+      "Digital transformation consulting",
+      "Workflow optimisation",
     ],
-    cta: { label: "Book a Session for a Quote", href: "/book" },
-    quoteCta: { label: "Discuss My Project", href: "/contact" },
+    pricing: {
+      kind: "quoted",
+      text: "Tailored solutions. Quoted according to your specific business needs.",
+    },
+    cta: { label: "Let's Discuss Your Project", href: "/book" },
   },
 ];
 
-/**
- * Options in the booking form's service field. Kept here so the form and the
- * API that validates it can never disagree. "Not sure yet" lets an undecided
- * visitor book instead of abandoning the form.
- */
+/** Footer links, pointing at each category on the services page. */
+export const serviceLinks = serviceCategories.map((category) => ({
+  href: `/services#${category.id}`,
+  label: category.name,
+}));
+
+/** Options in the old booking form's service field, until it is replaced. */
 export const BOOKING_SERVICES = [
   ...serviceCategories.map((category) => category.name),
   "Not sure yet",
 ];
-
-/** Footer links, pointing at each category on the pricing page. */
-export const serviceLinks = serviceCategories.map((category) => ({
-  href: `/pricing#${category.id}`,
-  label: category.name,
-}));

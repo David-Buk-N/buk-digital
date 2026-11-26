@@ -1,7 +1,8 @@
 # Buk Digital — Website
 
-Marketing site for Buk Digital: custom web applications, software solutions,
-consultations, and website design & hosting for South African SMEs.
+Marketing site for Buk Digital, a digital consulting and solutions partner:
+company branding and setup, web design and hosting, and custom solutions, all
+sold through a free consultation.
 
 Built with **Next.js (App Router) + Tailwind CSS + shadcn/ui + motion +
 lucide-react**, assembled from 21st.dev-style community components
@@ -9,12 +10,14 @@ lucide-react**, assembled from 21st.dev-style community components
 
 ## Pages
 
-| Route      | Purpose                                                        |
-| ---------- | -------------------------------------------------------------- |
-| `/`        | Hero with the Basic plan, services, plans, process, CTA band    |
-| `/pricing` | Basic, Pro and quoted Custom plans (`lib/services.ts`), services, FAQ |
+| Route       | Purpose                                                        |
+| ----------- | -------------------------------------------------------------- |
+| `/`         | Hero, services, why Buk Digital, process, FAQ, CTA band         |
+| `/services` | The three services in full, the starting price, FAQ            |
 | `/book`    | Booking form → Google Calendar event + confirmation email       |
 | `/contact` | Contact form, phone/email/WhatsApp details                      |
+
+`/pricing` redirects to `/services` with a 301 (`next.config.ts`).
 
 A floating WhatsApp click-to-chat button appears site-wide.
 
@@ -44,10 +47,13 @@ live you'll want:
 
 ## Editing content
 
+- Services, their lists, calls to action and the starting price:
+  `lib/services.ts`
 - Contact details / WhatsApp number: `lib/site.ts`
-- Testimonials: `components/sections/testimonials-section.tsx`
-- Pricing tiers & fine print: `components/sections/pricing-section.tsx`
-- FAQ: `app/pricing/page.tsx`
+- Billing fine print on `/services`: `components/sections/service-blocks.tsx`
+- Why Buk Digital: `components/sections/why-section.tsx`
+- FAQ (home and `/services`): `components/sections/faq-section.tsx`
+- Page titles, canonical URLs and structured data: `lib/seo.ts`
 - Theme (accent colour, radius): `app/globals.css` (`.dark` block)
 
 ## Legacy

@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal/legal-page";
 import { legalContact, payments } from "@/lib/legal";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Refund & Cancellation Policy",
   description:
     "How cancellations, deposits and refunds work for Buk Digital projects, hosting and consultations.",
-};
+  path: "/refunds",
+});
 
 export default function RefundsPage() {
   const via = payments.live ? ` through ${payments.provider}` : "";

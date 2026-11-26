@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ContactForm } from "@/components/contact/contact-form";
 import { siteConfig } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
   description:
-    "Get in touch with Buk Digital — phone, email or WhatsApp. We respond within one business day.",
-};
+    "Get in touch with Buk Digital by phone, email or WhatsApp. We respond within one business day.",
+  path: "/contact",
+});
 
 const linkClass = "text-lg font-medium underline-offset-4 hover:text-primary hover:underline";
 
@@ -16,8 +19,12 @@ export default function ContactPage() {
       <div>
         <h1 className="display-xl">Get in touch</h1>
         <p className="lead-text mt-6 max-w-lg">
-          Questions about a project, a package or anything else — we&apos;re
-          here to help.
+          Questions about a project, our services or anything else —
+          we&apos;re here to help. To talk it through properly,{" "}
+          <Link href="/book" className="underline underline-offset-4">
+            book a free consultation
+          </Link>
+          .
         </p>
 
         <dl className="mt-10 border-t-2 border-foreground">

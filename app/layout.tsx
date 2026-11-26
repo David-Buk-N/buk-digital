@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/footer";
 import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import { Analytics } from "@/components/analytics";
 import { siteConfig } from "@/lib/site";
+import { homeTitle, structuredData } from "@/lib/seo";
 
 const sans = Schibsted_Grotesk({
   variable: "--font-sans",
@@ -18,33 +19,37 @@ const mono = IBM_Plex_Mono({
   weight: ["400", "500"],
 });
 
+// Defaults for any page that sets none of its own (such as the 404 page).
+// Real pages build theirs with pageMetadata() in lib/seo.ts, which adds a
+// canonical URL. There is deliberately no canonical here: it would be
+// inherited by every page and point them all at the home page.
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — Branding, Websites & Custom Software`,
+    default: homeTitle,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
-    "custom web applications",
-    "software solutions",
-    "website design",
-    "web hosting",
+    "digital consulting",
+    "branding",
+    "web design",
+    "managed web hosting",
+    "custom software",
+    "business automation",
     "South Africa",
-    "SME",
-    "business websites",
   ],
   openGraph: {
     type: "website",
     locale: "en_ZA",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} — Branding, Websites & Custom Software`,
+    title: homeTitle,
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} — Branding, Websites & Custom Software`,
+    title: homeTitle,
     description: siteConfig.description,
   },
   robots: {
@@ -69,6 +74,13 @@ export default function RootLayout({
         <Footer />
         <WhatsAppButton />
         <Analytics />
+        <script
+          type="application/ld+json"
+          // Escaping "<" keeps the JSON from ever closing the script tag.
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData()).replace(/</g, "\\u003c"),
+          }}
+        />
       </body>
     </html>
   );

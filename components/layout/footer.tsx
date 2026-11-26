@@ -41,8 +41,8 @@ function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
 
 
 const companyLinks = [
-  { href: "/pricing", label: "Pricing" },
-  { href: "/book", label: "Book a Session" },
+  { href: "/services", label: "Services" },
+  { href: "/book", label: "Book a Free Consultation" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -76,8 +76,8 @@ export function Footer() {
               <span className="text-xl font-bold tracking-[-0.02em]">Buk Digital</span>
             </div>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-              Branding, business websites and custom software for growing
-              South African businesses.
+              Your digital partner for branding, websites and custom
+              technology, in South Africa and beyond.
             </p>
             {socialLinks.length > 0 && (
               <div className="mt-4 flex gap-3">

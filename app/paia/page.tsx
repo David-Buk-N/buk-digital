@@ -3,16 +3,18 @@ import Link from "next/link";
 import { LegalPage } from "@/components/legal/legal-page";
 import { EntityDetails } from "@/components/legal/entity-details";
 import { legalContact, legalEntity, resolved } from "@/lib/legal";
+import { pageMetadata } from "@/lib/seo";
 
 // Form numbers and prescribed fees have changed with successive regulations, so
 // they are referenced at https://inforegulator.org.za/paia/ rather than
 // reproduced here.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "PAIA Manual",
   description:
     "Buk Digital's manual under the Promotion of Access to Information Act 2 of 2000, including how to request access to records.",
-};
+  path: "/paia",
+});
 
 export default function PaiaPage() {
   const head = resolved(legalEntity.informationOfficer);

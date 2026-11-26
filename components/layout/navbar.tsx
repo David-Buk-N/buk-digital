@@ -7,8 +7,7 @@ import { Button } from "@/components/ui/button";
 import { LogoMark } from "@/components/layout/logo";
 
 const links = [
-  { href: "/#services", label: "Services" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/services", label: "Services" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -34,7 +33,7 @@ export function Navbar() {
             </Link>
           ))}
           <Button asChild>
-            <Link href="/book">Book a Session</Link>
+            <Link href="/book">Book a Free Consultation</Link>
           </Button>
         </div>
 
@@ -64,7 +63,7 @@ export function Navbar() {
             ))}
             <Button size="lg" className="mt-4 w-full" asChild>
               <Link href="/book" onClick={() => setOpen(false)}>
-                Book a Session
+                Book a Free Consultation
               </Link>
             </Button>
           </div>

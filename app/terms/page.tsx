@@ -9,12 +9,14 @@ import {
   payments,
   resolved,
 } from "@/lib/legal";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Terms & Conditions",
   description:
     "The terms on which Buk Digital provides websites, hosting, custom software and consulting services to South African businesses.",
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   const province = resolved(legalEntity.province);

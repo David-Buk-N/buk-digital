@@ -1,37 +1,39 @@
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
-import { serviceCategories, startingMonthly } from "@/lib/services";
-import { formatPrice, type Currency } from "@/lib/currency";
+import { ServicePrice } from "@/components/sections/service-blocks";
+import { serviceCategories } from "@/lib/services";
+import type { Currency } from "@/lib/currency";
 
 const capabilities = [
-  "Branding & identity",
-  "Logo design",
-  "Business websites",
-  "Domains & email",
+  "Brand strategy & logos",
+  "Business email & domains",
+  "Websites & managed hosting",
+  "Maintenance & support",
   "CRM & automation",
-  "Custom dashboards",
+  "Client portals & dashboards",
 ];
 
 export function ServicesSection({ currency }: { currency: Currency }) {
   return (
-    <section id="services" className="pt-36 pb-20 sm:pb-28 lg:pt-44">
+    <section id="services" className="scroll-mt-16 py-20 sm:py-28">
       <div className="wrap grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-24">
         <div>
           <p className="eyebrow text-primary">Services</p>
-          <h2 className="display-lg mt-4">What we build.</h2>
+          <h2 className="display-lg mt-4">What we do.</h2>
           <p className="lead-text mt-6 max-w-xl">
             Three ways Buk Digital helps your business look credible, get found
-            and run smoother.
+            and run better.
           </p>
           <p className="mt-4 text-[0.9375rem] text-muted-foreground">
-            Plans from{" "}
-            <span className="font-semibold text-foreground">
-              {formatPrice(startingMonthly, currency)}/month
-            </span>
-            , or quoted for custom work.{" "}
-            <Link href="/pricing" className="underline underline-offset-4">
-              See pricing
+            Not sure which you need?{" "}
+            <Link href="/book" className="underline underline-offset-4">
+              Book a free consultation
+            </Link>{" "}
+            and we&apos;ll help you choose, or{" "}
+            <Link href="/services" className="underline underline-offset-4">
+              see everything we offer
             </Link>
+            .
           </p>
 
           <ul className="hairline-list mt-9 sm:grid-cols-2 sm:gap-x-8">
@@ -58,6 +60,7 @@ export function ServicesSection({ currency }: { currency: Currency }) {
                 <p className="mt-3 max-w-lg text-muted-foreground">
                   {service.tagline}
                 </p>
+                <ServicePrice service={service} currency={currency} className="mt-3" />
                 <Link
                   href={service.cta.href}
                   className="mt-5 inline-flex items-center gap-1.5 text-[0.9375rem] font-semibold text-primary underline-offset-4 hover:underline"

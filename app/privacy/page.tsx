@@ -3,16 +3,18 @@ import Link from "next/link";
 import { LegalPage } from "@/components/legal/legal-page";
 import { EntityDetails } from "@/components/legal/entity-details";
 import { legalContact, legalEntity, payments, resolved } from "@/lib/legal";
+import { pageMetadata } from "@/lib/seo";
 
 // The processing described here mirrors what the site actually does today (see
 // app/api/book/route.ts, app/api/contact/route.ts, lib/google-calendar.ts and
 // lib/email.ts). Keep it in step with the code.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
   description:
     "How Buk Digital collects, uses and protects personal information under the Protection of Personal Information Act (POPIA).",
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   const analyticsEnabled = Boolean(process.env.NEXT_PUBLIC_GA_ID);

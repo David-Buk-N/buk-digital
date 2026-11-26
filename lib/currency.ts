@@ -24,7 +24,7 @@ export interface Price {
  */
 export const USD_REFERENCE = {
   zarPerUsd: 16.41,
-  setOn: "29 September 2026",
+  setOn: "26 November 2026",
 };
 
 export const otherCurrency: Record<Currency, Currency> = {
