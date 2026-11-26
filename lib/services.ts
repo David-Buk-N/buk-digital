@@ -115,9 +115,3 @@ export const serviceLinks = serviceCategories.map((category) => ({
   href: `/services#${category.id}`,
   label: category.name,
 }));
-
-/** Options in the old booking form's service field, until it is replaced. */
-export const BOOKING_SERVICES = [
-  ...serviceCategories.map((category) => category.name),
-  "Not sure yet",
-];

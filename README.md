@@ -14,8 +14,8 @@ lucide-react**, assembled from 21st.dev-style community components
 | ----------- | -------------------------------------------------------------- |
 | `/`         | Hero, services, why Buk Digital, process, FAQ, CTA band         |
 | `/services` | The three services in full, the starting price, FAQ            |
-| `/book`    | Booking form → Google Calendar event + confirmation email       |
-| `/contact` | Contact form, phone/email/WhatsApp details                      |
+| `/book`     | Free consultation, booked through Google Calendar (embedded)    |
+| `/contact`  | Contact form, phone/email/WhatsApp details                      |
 
 `/pricing` redirects to `/services` with a 301 (`next.config.ts`).
 
@@ -31,19 +31,23 @@ npm run dev
 ## Configuration
 
 Copy `.env.example` to `.env.local` and fill in the keys. Everything works
-without keys (bookings/enquiries are logged to the server console), but to go
-live you'll want:
+without keys (enquiries are logged to the server console), but to go live
+you'll want:
 
-1. **Google Calendar** — create a service account, enable the Calendar API,
-   share your calendar with the service account email, and set
-   `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `GOOGLE_CALENDAR_ID`.
-   (OAuth2 variables are supported as an alternative — see `.env.example`.)
-   All client details are written into the event description so each booking
-   is self-contained.
-2. **Email** — set `SMTP_USER` / `SMTP_PASS` (Gmail App Password) and
-   `CONTACT_EMAIL` for booking confirmations and contact-form notifications.
-3. **Analytics** — set `NEXT_PUBLIC_GA_ID` to activate Google Analytics.
-4. **Site URL** — set `NEXT_PUBLIC_SITE_URL` for correct SEO/sitemap URLs.
+1. **Email** — set `SMTP_USER` / `SMTP_PASS` (Gmail App Password) and
+   `CONTACT_EMAIL` for contact-form notifications.
+2. **Analytics** — set `NEXT_PUBLIC_GA_ID` to activate Google Analytics.
+3. **Site URL** — set `NEXT_PUBLIC_SITE_URL` for correct SEO/sitemap URLs.
+
+### Consultation bookings
+
+`/book` embeds a Google Calendar appointment schedule. It needs no keys: the
+link in `lib/site.ts` (`consultation.bookingUrl`) is public and shows only
+free/busy slots. Availability, buffers, minimum notice, the booking form's
+questions, Google Meet and the confirmation emails are all set in Google
+Calendar, under the appointment schedule's settings. If you change the
+appointment's length there, change `consultation.minutes` to match, since the
+site quotes it.
 
 ## Editing content
 
