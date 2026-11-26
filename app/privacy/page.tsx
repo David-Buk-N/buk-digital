@@ -6,8 +6,9 @@ import { legalContact, legalEntity, payments, resolved } from "@/lib/legal";
 import { pageMetadata } from "@/lib/seo";
 
 // The processing described here mirrors what the site actually does today (see
-// app/api/book/route.ts, app/api/contact/route.ts, lib/google-calendar.ts and
-// lib/email.ts). Keep it in step with the code.
+// app/book/page.tsx, which embeds Google Calendar appointment scheduling, and
+// app/api/contact/route.ts with lib/email.ts). Keep it in step with the code,
+// and with the booking form's questions in Google Calendar.
 
 export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
@@ -56,17 +57,33 @@ export default function PrivacyPage() {
         We collect only what we need to answer you and deliver our services.
       </p>
 
-      <h3>When you book a session</h3>
+      <h3>When you book a consultation</h3>
+      <p>
+        Consultations are booked through Google Calendar appointment
+        scheduling, which is built into our booking page. When you book, we
+        receive:
+      </p>
       <ul>
         <li>Your name</li>
         <li>Email address</li>
         <li>Phone number</li>
-        <li>Company name, if you give one</li>
-        <li>The service you are interested in</li>
-        <li>Your preferred date and time</li>
-        <li>The project brief you write</li>
-        <li>Whether you opted in to marketing</li>
+        <li>
+          Your answers to any other questions on the booking form, such as your
+          company name, the service you are interested in and a short
+          description of your project
+        </li>
+        <li>The date and time you choose</li>
       </ul>
+      <p>
+        Google also processes what you enter on the booking form, under its
+        own <a
+          href="https://policies.google.com/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          privacy policy
+        </a>.
+      </p>
 
       <h3>When you use the contact form</h3>
       <ul>
@@ -100,7 +117,7 @@ export default function PrivacyPage() {
         </thead>
         <tbody>
           <tr>
-            <td>Responding to your enquiry and scheduling sessions</td>
+            <td>Responding to your enquiry and scheduling consultations</td>
             <td>
               Steps to conclude or perform a contract with you (section 11(1)(b))
             </td>
@@ -126,7 +143,7 @@ export default function PrivacyPage() {
       <p>
         Marketing is always optional. You can submit any enquiry or booking
         without agreeing to receive marketing, and we will not treat an
-        enquiry as consent.
+        enquiry or a booking as consent.
       </p>
 
       <h2 id="sharing">4. Who we share it with</h2>
@@ -149,14 +166,16 @@ export default function PrivacyPage() {
           <tr>
             <td>Google (Calendar)</td>
             <td>
-              Booking details are written into a calendar event so we can
-              prepare for your session
+              Running the booking page and the Google Meet video call, adding
+              your consultation to our calendar, and sending your
+              confirmation and cancellation emails
             </td>
           </tr>
           <tr>
             <td>Google (Gmail)</td>
             <td>
-              Sending your confirmation email and notifying us of your enquiry
+              Notifying us of your contact-form enquiry, and our email
+              correspondence with you
             </td>
           </tr>
           {analyticsEnabled && (
@@ -234,6 +253,20 @@ export default function PrivacyPage() {
           without them.
         </p>
       )}
+      <p>
+        Our booking page embeds Google Calendar&apos;s booking tool, which no
+        other page loads. When it loads, Google sets its own cookies, including
+        a reCAPTCHA cookie it uses to protect the booking form from spam.
+        Google, not us, controls these cookies, under its{" "}
+        <a
+          href="https://policies.google.com/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          privacy policy
+        </a>
+        .
+      </p>
 
       <h2 id="retention">7. How long we keep it</h2>
       <table>
@@ -250,7 +283,7 @@ export default function PrivacyPage() {
           </tr>
           <tr>
             <td>Booking and calendar records</td>
-            <td>Up to 12 months after the session</td>
+            <td>Up to 12 months after the consultation</td>
           </tr>
           <tr>
             <td>Client contracts and project records</td>

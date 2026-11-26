@@ -14,7 +14,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Terms & Conditions",
   description:
-    "The terms on which Buk Digital provides websites, hosting, custom software and consulting services to South African businesses.",
+    "The terms on which Buk Digital provides websites, hosting, custom software and consulting services to businesses in South Africa and abroad.",
   path: "/terms",
 });
 
@@ -46,12 +46,12 @@ export default function TermsPage() {
       <p>We provide some or all of the following, as set out in your quote:</p>
       <ul>
         <li>
-          <strong>Business Development</strong> — branding and visual identity,
+          <strong>Company Branding &amp; Setup</strong> — branding and visual identity,
           logo design, brand guidelines, business setup and related
           documentation
         </li>
         <li>
-          <strong>Digital Presence</strong> — website design and development,
+          <strong>Web Design &amp; Hosting</strong> — website design and development,
           domain registration, professional email, hosting, SSL, maintenance
           and optional ongoing support
         </li>
@@ -127,8 +127,9 @@ export default function TermsPage() {
         </li>
       </ul>
       <p>
-        Current package prices are published on our{" "}
-        <Link href="/pricing">pricing page</Link>.
+        Our <Link href="/services">services page</Link> shows a starting
+        price for some services. The price you pay is the one in your accepted
+        quote or proposal.
       </p>
 
       <h2 id="process">6. How a project runs</h2>
@@ -141,7 +142,7 @@ export default function TermsPage() {
       </ol>
       <p>
         The number of revision rounds included is stated in your quote or
-        package. Further rounds are quoted separately.
+        proposal. Further rounds are quoted separately.
       </p>
 
       <h2 id="your-responsibilities">7. What we need from you</h2>
@@ -199,7 +200,7 @@ export default function TermsPage() {
       <h2 id="domains">11. Domain names</h2>
       <ul>
         <li>
-          Where a package includes a domain, that covers one standard
+          Where your service includes a domain, that covers one standard
           registration for the first 12 months, subject to availability and
           registry rules.
         </li>
@@ -220,7 +221,7 @@ export default function TermsPage() {
       <h2 id="hosting">12. Hosting and maintenance</h2>
       <p>
         Hosting and maintenance is a monthly service. What it includes is set
-        out in your package and typically covers hosting, an SSL certificate,
+        out in your quote or proposal and typically covers hosting, an SSL certificate,
         software updates, routine backups and reasonable support during
         business hours.
       </p>

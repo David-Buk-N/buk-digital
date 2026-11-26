@@ -53,7 +53,7 @@ export const payments = {
 } as const;
 
 /** The date shown on each policy. Update whenever a policy's wording changes. */
-export const LEGAL_LAST_UPDATED = "21 September 2026";
+export const LEGAL_LAST_UPDATED = "26 November 2026";
 
 /** True while a value is still a [BRACKETED] placeholder. */
 export function isUnset(value: string | null | undefined): boolean {
